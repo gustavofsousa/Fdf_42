@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wextra -Wall -Werror
 
-SRCS = main.c
+SRCS = main_backblue.c
 
 OBJS = $(SRCS:.c=.o)
 
