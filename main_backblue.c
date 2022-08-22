@@ -1,4 +1,4 @@
-#inclue "mlx/mlx.h"
+#include "./mlx/mlx.h"
 
 typedef struct s_data
 {
@@ -10,26 +10,26 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-void	main(void)
+int	main(void)
 {
-
 	int	x;
 	int	y;
 	int	color;
-	int	*buffer;
+	char	*buffer;
 	int	line_bytes;
 
 	t_data data;
+	data.bits_per_pixel = 32;
+	line_bytes = 100;
 
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, 640, 360, "red window");
 	data.img = mlx_new_image(data.mlx, 640, 360);
 
-	buffer = mlx_get_data_addr(data.img, 32, 1, data.endian);
+	buffer = mlx_get_data_addr(data.img, &data.bits_per_pixel, &line_bytes, &data.endian);
 
 
 	color = 0xFF0000;
-	line_bytes = 100;
 	y = -1;
 	while (++y < 360)//Lines
 	{
