@@ -1,15 +1,57 @@
-#include "./mlx/mlx.h"
-#include <stdlib.h>
+#include "fdf.h"
 
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
 	void	*img;
+	int		*buffer;//I put int*
 	int		bits_per_pixel;//32
 	int		line_bytes;
 	int		endian;
 }	t_data;
+
+typedef struct	s_pixel
+{
+	int			x;
+	int			y;
+	int			color;
+}				t_pixel;
+
+int	main(void)
+{
+	int	pos;
+
+	//Initializing mlx, image and buffer.
+	t_data data;
+	data.mlx = mlx_init();
+	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "red window");
+	data.img = mlx_new_image(data.mlx, W_LENGHT - 60, W_HEIGHT - 60);
+	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
+	data.line_bytes /= 4;
+
+	//Initializing pixel and color
+	t_pixel pixel;
+	pixel.color = 0xABCDEF;
+	pixel.y = 0;
+	while (pixel.y < 360)
+	{
+		pixel.x = -1;
+		while (++pixel.x < 640)
+		{
+			pos = (pixel.y * data.line_bytes) + pixel.x;
+			data.buffer[pos] = pixel.color;
+		}
+		pixel.y++;
+	}
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 30, 30);
+	mlx_loop(data.mlx);
+	return (0);
+}
+
+
+
+
 
 void	put_pixel_char(int pixel, int endian, int color, int *buffer)
 {//If need to use this check the tutorial. Line_bytes would need to change.
@@ -31,34 +73,4 @@ void	put_pixel_char(int pixel, int endian, int color, int *buffer)
         		buffer[pixel + 2] = (color >> 16) & 0xFF;
         		buffer[pixel + 3] = (color >> 24);
     		}
-}
-
-int	main(void)
-{
-	int	x;
-	int	y;
-	int	color;
-	//int	*buffer;
-
-	t_data data;
-	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, 640, 360, "red window");
-	data.img = mlx_new_image(data.mlx, 640, 360);
-	int	*buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
-	color = 0xABCDEF;
-	data.line_bytes /= 4;
-	y = 0;
-	while (y < 360)
-	{
-		x = 0;
-		while (x < 640)
-		{
-			buffer[(y * data.line_bytes) + x] = color;
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-	mlx_loop(data.mlx);
-	return (0);
 }
