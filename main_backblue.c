@@ -7,43 +7,56 @@ typedef struct s_data
 	void	*win;
 	void	*img;
 	int		bits_per_pixel;//32
-	int		line_len;
+	int		line_bytes;
 	int		endian;
 }	t_data;
+
+void	put_pixel_char(int pixel, int endian, int color, int *buffer)
+{//If need to use this check the tutorial. Line_bytes would need to change.
+	//if (data.bits_per_pixel != 32)
+	//	color = mlx_get_color_value(data.mlx, color);
+			//pixel = (y * line_bytes) + (x * 4);
+
+    		if (endian == 1)        // Most significant (Alpha) byte first
+    		{
+        		buffer[pixel + 0] = (color >> 24);
+        		buffer[pixel + 1] = (color >> 16) & 0xFF;
+        		buffer[pixel + 2] = (color >> 8) & 0xFF;
+        		buffer[pixel + 3] = (color) & 0xFF;
+    		}
+    		else if (endian == 0)   // Least significant (Blue) byte first
+    		{
+        		buffer[pixel + 0] = (color) & 0xFF;
+        		buffer[pixel + 1] = (color >> 8) & 0xFF;
+        		buffer[pixel + 2] = (color >> 16) & 0xFF;
+        		buffer[pixel + 3] = (color >> 24);
+    		}
+}
 
 int	main(void)
 {
 	int	x;
 	int	y;
 	int	color;
-	char	*buffer;
-	int	line_bytes;
+	//int	*buffer;
 
 	t_data data;
-	data.bits_per_pixel = 32;
-	line_bytes = 128;
-	data.endian = 1;
-
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, 640, 360, "red window");
 	data.img = mlx_new_image(data.mlx, 640, 360);
-	data.img = malloc(640 * 4 * 360 * 4);
-
-	buffer = mlx_get_data_addr(data.img, &data.bits_per_pixel, &line_bytes, &data.endian);
-
-
-	color = 0xFF0000;
+	int	*buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
+	color = 0xABCDEF;
+	data.line_bytes /= 4;
 	y = 0;
-	while (y < 360)//Lines
+	while (y < 360)
 	{
 		x = 0;
-		while (x < 640)//columns
+		while (x < 640)
 		{
-			buffer[y + x] = color;
-
-			x += data.bits_per_pixel / 8;
+			buffer[(y * data.line_bytes) + x] = color;
+			x++;
 		}
-		y += line_bytes / 32;
+		y++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_loop(data.mlx);
