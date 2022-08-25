@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_backblue.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
+/*   Updated: 2022/08/25 18:35:24 by gusousa          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 typedef struct s_data
@@ -18,7 +30,7 @@ typedef struct	s_pixel
 	int			color;
 }				t_pixel;
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int	pos;
 
@@ -29,6 +41,18 @@ int	main(void)
 	data.img = mlx_new_image(data.mlx, W_LENGHT - 60, W_HEIGHT - 60);
 	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
 	data.line_bytes /= 4;
+
+	(void)argc;
+	int	fd = open(argv[1], O_RDONLY);
+	char	line[60];
+		line = get_next_line(fd);
+	ft_putstr_fd(line, 1);
+
+
+
+
+
+
 
 	//Initializing pixel and color
 	t_pixel pixel;
