@@ -27,27 +27,27 @@ LIBFT = ./include/libft_42/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS) libft libmlx gnl
-	$(CC) $(OBJS) $(LIBXFLAGS) $(LIBFT) -o $(NAME)
+	$(CC) -g $(OBJS) $(LIBXFLAGS) $(LIBFT) get_next_line.o get_next_line_utils.o -o $(NAME)
 
 libft:
 	@make -C include/libft_42
 
 libmlx:
-	make -s -C mlx
+	@make -s -C mlx
 
 gnl: $(SRC_GNL)
 	$(CC) $(CFLAGS) -c $(SRC_GNL)
 
-re: clean all
+re: fclean all
 
 clean:
 	@rm -f $(OBJS)
-	#@rm -f $(OBJS_GNL)
+	@rm -f $(OBJS_GNL)
 	@make -C include/libft_42 clean
 
 fclean: clean
 	@make -C include/libft_42 fclean
 	@rm fdf
 	
-run: all
+run: re
 	./fdf

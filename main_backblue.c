@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/25 18:35:24 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/08/29 10:51:32 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,33 @@ int	main(int argc, char **argv)
 	data.line_bytes /= 4;
 
 	(void)argc;
-	int	fd = open(argv[1], O_RDONLY);
-	char	line[60];
-		line = get_next_line(fd);
-	ft_putstr_fd(line, 1);
+	int	fd;
+	char	**map_char;
+	int		lin;
+	int		h;
 
+	// Contar qtd linha.
+	map_char = 0;
+	fd = open(argv[1], O_RDONLY);
+	lin = 0;
+	while (get_next_line(fd))
+			lin++;
+	close(fd);
+	map_char = malloc(lin * sizeof(char *));
 
+	//Pegar a matriz em char.
+	fd = open(argv[1], O_RDONLY);
+	h = 0;
+	while (h < lin)
+	{
+		map_char[h] = get_next_line(fd);
+		ft_putstr_fd(map_char[h], 1);
+		h++;
+
+	}
+	// Contar qtd célula.
+	// Split atoi
+	// row[j] = split(map_char[i])
 
 
 
@@ -63,8 +84,11 @@ int	main(int argc, char **argv)
 		pixel.x = -1;
 		while (++pixel.x < 640)
 		{
-			pos = (pixel.y * data.line_bytes) + pixel.x;
-			data.buffer[pos] = pixel.color;
+			if (pixel.y % lin == 0)
+			{
+				pos = (pixel.y * data.line_bytes) + pixel.x;
+				data.buffer[pos] = pixel.color;
+			}
 		}
 		pixel.y++;
 	}
