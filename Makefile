@@ -8,7 +8,6 @@ SRCS = main_backblue.c
 
 SRC_GNL = include/get_next_line_42/get_next_line.c \
 			include/get_next_line_42/get_next_line_utils.c \
-			include/get_next_line_42/get_next_line.h
 
 INC = ./include/libft_42 \
 	  ./include/get_next_line_42 \
@@ -22,7 +21,7 @@ LIBXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 LIBFT = ./include/libft_42/libft.a
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	@$(CC) $(CFLAGS) -g -Imlx -c $< -o $@
 
 all: $(NAME)
 
@@ -30,7 +29,7 @@ $(NAME): $(OBJS) libft libmlx gnl
 	$(CC) -g $(OBJS) $(LIBXFLAGS) $(LIBFT) get_next_line.o get_next_line_utils.o -o $(NAME)
 
 libft:
-	@make -C include/libft_42
+	@make all -C include/libft_42
 
 libmlx:
 	@make -s -C mlx
