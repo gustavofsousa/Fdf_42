@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/29 16:23:39 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/08/29 16:31:44 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "./mlx/mlx.h"
 #include <fcntl.h>
 
-#define W_HEIGHT 460
-#define W_LENGHT 700
+#define W_HEIGHT 600
+#define W_LENGHT 800
 
 #define LIGHT_BLUE	0XABCDEF
 #define GREEN_1		0X138D75

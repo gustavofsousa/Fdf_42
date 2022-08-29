@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/29 16:20:20 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/08/29 17:01:59 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,10 @@ int	main(int argc, char **argv)
 				ft_putstr_fd("Invalid map", 1);
 		map_int[h] = ft_split_int(map_char[h], ' ');
 		ft_putstr_fd(map_char[h], 1);
+		free(map_char[h]);
 	}
 	free(map_char);
-	// Contar qtd célula.
 	ft_putnbr_fd(n_columns, 1);	
-
-
-
 
 	//Initializing mlx, image and buffer.
 	t_data data;
@@ -80,9 +77,14 @@ int	main(int argc, char **argv)
 	data.line_bytes /= 4;
 
 	//Initializing pixel and color
+	int	i;
+	int j;
+
 	t_pixel pixel;
 	pixel.color = GREEN_1;
 	pixel.y = 0;
+	i = 0;
+	j = 0;
 	while (pixel.y < 360)
 	{
 		pixel.x = -1;
@@ -91,9 +93,22 @@ int	main(int argc, char **argv)
 			if (pixel.y % lin == 0 || pixel.x % n_columns == 0)
 			{
 				pos = (pixel.y * data.line_bytes) + pixel.x;
-				data.buffer[pos] = pixel.color;
+				if (map_int[i][j] != 0)
+				{
+					ft_putnbr_fd(i, 1);
+					ft_putstr_fd("\n", 1);
+					ft_putnbr_fd(j, 1);
+					ft_putstr_fd("\n", 1);
+					//data.buffer[pos] = PINK;
+				}
+					else
+					data.buffer[pos] = pixel.color;
+				if (pixel.x % n_columns == 0)
+					j++;
 			}
 		}
+		if (pixel.y % lin == 0)
+			i++;
 		pixel.y++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 30, 30);
