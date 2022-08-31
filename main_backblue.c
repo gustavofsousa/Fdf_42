@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/29 17:01:59 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/08/31 14:49:04 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	t_data data;
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "red window");
-	data.img = mlx_new_image(data.mlx, W_LENGHT - 60, W_HEIGHT - 60);
+	data.img = mlx_new_image(data.mlx, W_LENGHT, W_HEIGHT);
 	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
 	data.line_bytes /= 4;
 
@@ -82,26 +82,24 @@ int	main(int argc, char **argv)
 
 	t_pixel pixel;
 	pixel.color = GREEN_1;
-	pixel.y = 0;
+	pixel.y = -1;
 	i = 0;
-	j = 0;
-	while (pixel.y < 360)
+	while (++pixel.y < W_HEIGHT)
 	{
+		j = 0;
 		pixel.x = -1;
-		while (++pixel.x < 640)
+		while (++pixel.x < W_LENGHT)
 		{
 			if (pixel.y % lin == 0 || pixel.x % n_columns == 0)
 			{
 				pos = (pixel.y * data.line_bytes) + pixel.x;
+				ft_putnbr_fd(i, 1);
+				ft_putstr_fd("\n", 1);
+				ft_putnbr_fd(j, 1);
+				ft_putstr_fd("\n", 1);
 				if (map_int[i][j] != 0)
-				{
-					ft_putnbr_fd(i, 1);
-					ft_putstr_fd("\n", 1);
-					ft_putnbr_fd(j, 1);
-					ft_putstr_fd("\n", 1);
-					//data.buffer[pos] = PINK;
-				}
-					else
+					data.buffer[pos] = PINK;
+				else
 					data.buffer[pos] = pixel.color;
 				if (pixel.x % n_columns == 0)
 					j++;
@@ -109,7 +107,6 @@ int	main(int argc, char **argv)
 		}
 		if (pixel.y % lin == 0)
 			i++;
-		pixel.y++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 30, 30);
 	mlx_loop(data.mlx);

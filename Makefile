@@ -20,7 +20,7 @@ LIBXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 LIBFT = ./include/libft_42/libft.a
 
-obj/%.o: src/%.c
+%.o: %.c
 	@$(CC) $(CFLAGS) -g -Imlx -c $< -o $@
 
 all: $(NAME)

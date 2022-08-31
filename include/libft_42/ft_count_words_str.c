@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_count_words_str.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/31 14:27:28 by gusousa          ###   ########.fr       */
+/*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
+/*   Updated: 2022/08/29 16:06:06 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/libft_42/libft.h"
-#include "./include/get_next_line_42/get_next_line.h"
-#include "./mlx/mlx.h"
-#include <fcntl.h>
+#include "libft.h"
 
-#define W_HEIGHT 360
-#define W_LENGHT 640
+size_t	ft_count_words_str(char const *s, char sep)
+{
+	size_t	i;
+	size_t	qtd_word;
+	size_t	next;
 
-#define LIGHT_BLUE	0XABCDEF
-#define GREEN_1		0X138D75
-#define GREEN_2		0X40E0D0
-#define GREEN_3		0X9FE2BF
-#define GREEN_4		0XDFFF00
-#define PINK		0XE94BDA
+	i = 0;
+	qtd_word = 0;
+	while (s[i])
+	{
+		next = i + 1;
+		if (s[i] != sep && (s[next] == sep || s[next] == '\0'))
+			qtd_word++;
+		i++;
+	}
+	return (qtd_word);
+}
