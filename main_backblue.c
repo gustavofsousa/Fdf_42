@@ -6,106 +6,99 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/31 14:49:04 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/01 17:48:40 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-typedef struct s_data
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		*buffer;//I put int*
-	int		bits_per_pixel;//32
-	int		line_bytes;
-	int		endian;
-}	t_data;
+	char	*dst;
 
-typedef struct	s_pixel
-{
-	int			x;
-	int			y;
-	int			color;
-}				t_pixel;
+	dst = data->buffer + (y * data->line_bytes + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 int	main(int argc, char **argv)
 {
-	int	pos;
+	int			pos;
+	int			i;
+	int 		j;
+	int			fd;
+	char		**map_char;
+	int			**map_int;
+	int			n_rows;
+	int		n_columns;
+	int			h;
+
 	if (argc != 2)
 		ft_putendl_fd("Missing arguments", 1);
-	int	fd;
-	char	**map_char;
-	int		**map_int;
-	int		lin;
-	size_t		n_columns;
-	int		h;
-
-	// Contar qtd linha.
-	map_char = 0;
-	fd = open(argv[1], O_RDONLY);
-	lin = 0;
-	while (get_next_line(fd))
-			lin++;
-	close(fd);
-	map_char = malloc(lin * sizeof(char *));
-	map_int = malloc(lin * sizeof(int *));
-
-	//Pegar a matriz em char e convert para int.
-	fd = open(argv[1], O_RDONLY);
-	h = -1;
-	while (++h < lin)
-	{
-		map_char[h] = get_next_line(fd);
-		n_columns = ft_count_words_str(map_char[h], ' ');
-		if (h != 1 && n_columns != ft_count_words_str(map_char[h], ' '))
-				ft_putstr_fd("Invalid map", 1);
-		map_int[h] = ft_split_int(map_char[h], ' ');
-		ft_putstr_fd(map_char[h], 1);
-		free(map_char[h]);
-	}
-	free(map_char);
-	ft_putnbr_fd(n_columns, 1);	
 
 	//Initializing mlx, image and buffer.
 	t_data data;
 	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "red window");
-	data.img = mlx_new_image(data.mlx, W_LENGHT, W_HEIGHT);
-	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
-	data.line_bytes /= 4;
+	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "fdf");
+	data.img = mlx_new_image(data.mlx, W_LENGHT - 50, W_HEIGHT - 50);
+	data.buffer = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
+	//data.line_bytes /= 4;
 
-	//Initializing pixel and color
-	int	i;
-	int j;
+	// Contar qtd linha.
+	map_char = 0;
+	fd = open(argv[1], O_RDONLY);
+	n_rows = 0;
+	while (get_next_line(fd))
+			n_rows++;
+	close(fd);
+	map_char = malloc(n_rows * sizeof(char *));
+	map_int = malloc(n_rows * sizeof(int *));
 
+	//Pegar a matriz em char e convert para int.
+	fd = open(argv[1], O_RDONLY);
+	h = -1;
+	while (++h < n_rows)
+	{
+		map_char[h] = get_next_line(fd);
+		n_columns = (int)ft_count_words_str(map_char[h], ' ');
+		if (h != 1 && n_columns != (int)ft_count_words_str(map_char[h], ' '))
+				ft_putstr_fd("Invalid map", 1);
+		map_int[h] = ft_split_int(map_char[h], ' ');
+		free(map_char[h]);
+	}
+	free(map_char);
+
+	int stack_interval_row = W_HEIGHT / n_rows;
+	int stack_interval_col = W_LENGHT / n_columns;
+
+	//Initializing pixel and color & paint.
 	t_pixel pixel;
 	pixel.color = GREEN_1;
 	pixel.y = -1;
 	i = 0;
-	while (++pixel.y < W_HEIGHT)
+	while (++pixel.y < W_HEIGHT - 50)
 	{
 		j = 0;
 		pixel.x = -1;
-		while (++pixel.x < W_LENGHT)
+		while (++pixel.x < W_LENGHT - 50)
 		{
-			if (pixel.y % lin == 0 || pixel.x % n_columns == 0)
+			if (pixel.y  % stack_interval_row == 0 || pixel.x % stack_interval_col == 0)
 			{
 				pos = (pixel.y * data.line_bytes) + pixel.x;
 				ft_putnbr_fd(i, 1);
-				ft_putstr_fd("\n", 1);
+				ft_putstr_fd("\t", 1);
 				ft_putnbr_fd(j, 1);
 				ft_putstr_fd("\n", 1);
 				if (map_int[i][j] != 0)
-					data.buffer[pos] = PINK;
+					my_mlx_pixel_put(&data, pixel.x, pixel.y, PINK);
+					//data.buffer[pos] = PINK;
 				else
-					data.buffer[pos] = pixel.color;
-				if (pixel.x % n_columns == 0)
+					my_mlx_pixel_put(&data, pixel.x, pixel.y, GREEN_1);
+					//data.buffer[pos] = pixel.color;
+				if (pixel.x % stack_interval_col == 0)
 					j++;
 			}
 		}
-		if (pixel.y % lin == 0)
+		if (pixel.y % stack_interval_row == 0 && i < n_columns - 1)
 			i++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 30, 30);
