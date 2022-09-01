@@ -6,19 +6,12 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/01 17:48:40 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/01 18:40:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->buffer + (y * data->line_bytes + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
 
 int	main(int argc, char **argv)
 {
@@ -40,8 +33,8 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "fdf");
 	data.img = mlx_new_image(data.mlx, W_LENGHT - 50, W_HEIGHT - 50);
-	data.buffer = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
-	//data.line_bytes /= 4;
+	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
+	data.line_bytes /= 4;
 
 	// Contar qtd linha.
 	map_char = 0;
@@ -84,21 +77,15 @@ int	main(int argc, char **argv)
 			if (pixel.y  % stack_interval_row == 0 || pixel.x % stack_interval_col == 0)
 			{
 				pos = (pixel.y * data.line_bytes) + pixel.x;
-				ft_putnbr_fd(i, 1);
-				ft_putstr_fd("\t", 1);
-				ft_putnbr_fd(j, 1);
-				ft_putstr_fd("\n", 1);
 				if (map_int[i][j] != 0)
-					my_mlx_pixel_put(&data, pixel.x, pixel.y, PINK);
-					//data.buffer[pos] = PINK;
+					data.buffer[pos] = PINK;
 				else
-					my_mlx_pixel_put(&data, pixel.x, pixel.y, GREEN_1);
-					//data.buffer[pos] = pixel.color;
+					data.buffer[pos] = pixel.color;
 				if (pixel.x % stack_interval_col == 0)
 					j++;
 			}
 		}
-		if (pixel.y % stack_interval_row == 0 && i < n_columns - 1)
+		if (pixel.y % stack_interval_row == 0)
 			i++;
 	}
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 30, 30);
