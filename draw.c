@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 18:53:24 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 19:33:28 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void    draw_win(t_fdf *fdf)
 		j = 0;
 		while (++fdf->p.x < W_LENGHT - 50)
 		{
-			if (i != 0 && j != 0)
+//			if (i != 0 && j != 0)
 				draw_line(fdf, i, j);
 			if (fdf->p.x % fdf->map.interval_col == 0)
 				j++;
