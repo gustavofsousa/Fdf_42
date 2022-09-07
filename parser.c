@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 15:07:31 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 18:53:55 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,22 @@ static void	count_rows(t_fdf *fdf, char *file_name)
 	while (get_next_line(fd))
 		fdf->map.rows++;
 	close(fd);
+}
+
+static	void	count_columns(t_fdf *fdf, char **map_char)
+{
+	int	a_row;
+	int	count;
+
+	a_row = 0;
+	count = (int)ft_count_words_str(map_char[a_row], ' ');
+	while (map_char[a_row])
+		if (count != (int)ft_count_words_str(map_char[a_row++], ' '))
+		{
+			ft_putendl_fd("Invalid map", 1);
+			exit (0);
+		}
+	fdf->map.columns = count;
 }
 
 int	parse(t_fdf *fdf, char *file_name)
@@ -43,10 +59,11 @@ int	parse(t_fdf *fdf, char *file_name)
 				//Check for invalid map
 				map_char[a_row] = get_next_line(fd);
 				fdf->map.map[a_row] = ft_split_int(map_char[a_row], ' ');
-				fdf->map.columns = (int)ft_count_words_str(map_char[a_row], ' ');
 				free(map_char[a_row]);
 			}
 			free(map_char);
+			fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
+			fdf->map.interval_col = W_LENGHT / fdf->map.columns;
 			return (1);
 		}
 	}
