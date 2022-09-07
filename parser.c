@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 18:53:55 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 18:57:06 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ static	void	count_columns(t_fdf *fdf, char **map_char)
 	fdf->map.columns = count;
 }
 
+void	dub_free(char **mat)
+{
+	int	row;
+
+	row = -1;
+	while (mat[++row])
+		free(mat[row]);
+	free(mat);
+}
+
+
 int	parse(t_fdf *fdf, char *file_name)
 {
 	char	**map_char;
@@ -56,7 +67,6 @@ int	parse(t_fdf *fdf, char *file_name)
 			a_row = -1;
 			while (++a_row < fdf->map.rows)
 			{
-				//Check for invalid map
 				map_char[a_row] = get_next_line(fd);
 				fdf->map.map[a_row] = ft_split_int(map_char[a_row], ' ');
 				free(map_char[a_row]);
