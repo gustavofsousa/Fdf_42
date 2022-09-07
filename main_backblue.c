@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/01 18:40:12 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 11:52:40 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ int	main(int argc, char **argv)
 	int			pos;
 	int			i;
 	int 		j;
-	int			fd;
-	char		**map_char;
 	int			**map_int;
-	int			n_rows;
-	int		n_columns;
-	int			h;
+	t_map	map;
+	t_fdf	fdf;
 
 	if (argc != 2)
 		ft_putendl_fd("Missing arguments", 1);
@@ -36,29 +33,44 @@ int	main(int argc, char **argv)
 	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
 	data.line_bytes /= 4;
 
-	// Contar qtd linha.
+	map.rows = 0;
+	map.columns = 0;
+
+	parse(fdf, argv[1]);
+
+void	parse(t_fdf fdf, char *file_name)
+{
+	char		**map_char;
+	int			h;
+	int			fd;
+
 	map_char = 0;
-	fd = open(argv[1], O_RDONLY);
-	n_rows = 0;
+	fd = open(file_name, O_RDONLY);
 	while (get_next_line(fd))
-			n_rows++;
+			map.rows++;;
 	close(fd);
 	map_char = malloc(n_rows * sizeof(char *));
-	map_int = malloc(n_rows * sizeof(int *));
-
-	//Pegar a matriz em char e convert para int.
-	fd = open(argv[1], O_RDONLY);
-	h = -1;
-	while (++h < n_rows)
+	if (map_char != 0)
 	{
-		map_char[h] = get_next_line(fd);
-		n_columns = (int)ft_count_words_str(map_char[h], ' ');
-		if (h != 1 && n_columns != (int)ft_count_words_str(map_char[h], ' '))
-				ft_putstr_fd("Invalid map", 1);
-		map_int[h] = ft_split_int(map_char[h], ' ');
-		free(map_char[h]);
+		map.map = malloc(n_rows * sizeof(int *));
+		if (map.map != 0)
+		{
+			fd = open(argv[1], O_RDONLY);
+		h = -1;
+		while (++h < map.rows)
+		{
+			map_char[h] = get_next_line(fd);
+			n_columns = (int)ft_count_words_str(map_char[h], ' ');
+			if (h != 1 && n_columns != (int)ft_count_words_str(map_char[h], ' '))
+					ft_putstr_fd("Invalid map", 1);
+			map.map[h] = ft_split_int(map_char[h], ' ');
+			free(map_char[h]);
+		}
+		free(map_char);
+		}
 	}
-	free(map_char);
+}
+
 
 	int stack_interval_row = W_HEIGHT / n_rows;
 	int stack_interval_col = W_LENGHT / n_columns;

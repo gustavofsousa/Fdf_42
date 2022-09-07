@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/06 15:05:55 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 11:43:47 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@
 #define GRAY_MID	0x868686
 #define GRAY_HIGH	0xC3C3C3
 
-typedef struct s_data
+typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
 	void	*img;
-	int		*buffer;//I put int*
-	int		bits_per_pixel;//32
+	int		*buffer;
+	int		bits_per_pixel;
 	int		line_bytes;
 	int		endian;
-}	t_data;
+}	t_mlx;
 
 typedef struct	s_pixel
 {
@@ -58,3 +58,20 @@ typedef struct	s_pixel
 	int			y;
 	int			color;
 }	t_pixel;
+
+typedef	struct	s_map
+{
+	int	**map;
+	int	rows;
+	int	columns;
+}	t_map;
+
+typedef struct s_fdf
+{
+	t_map	map;
+	t_mlx	mlx;
+}	t_fdf;
+
+
+
+
