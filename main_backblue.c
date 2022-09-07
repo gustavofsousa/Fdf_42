@@ -6,11 +6,51 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 11:52:40 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:50:11 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	count_rows(t_fdf fdf, char *file_name)
+{
+	int			fd;
+
+	fd = open(file_name, O_RDONLY);
+	while (get_next_line(fd))
+			map.rows++;
+	close(fd);
+}
+
+int	parse(t_fdf fdf, char *file_name)
+{
+	char		**map_char;
+	int			a_row;
+
+	count_rows(fdf, file_name);
+	map_char = 0;
+	map_char = malloc(map.rows * sizeof(char *));
+	if (map_char != 0)
+	{
+		map.map = malloc(map.rows * sizeof(int *));
+		if (map.map != 0)
+		{
+			fd = open(file_name,  O_RDONLY);
+			a_row = -1;
+			while (++a_row < map.rows)
+				//Check for invalid map
+			{
+				map_char[a_row] = get_next_line(fd);
+				map.map[a_row] = ft_split_int(map_char[a_row], ' ');
+				map.columns = (int)ft_count_words_str(map_char[a_row], ' ');
+				free(map_char[a_row]);
+			}
+			free(map_char);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 
 int	main(int argc, char **argv)
@@ -26,54 +66,19 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Missing arguments", 1);
 
 	//Initializing mlx, image and buffer.
-	t_data data;
-	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, W_LENGHT, W_HEIGHT, "fdf");
-	data.img = mlx_new_image(data.mlx, W_LENGHT - 50, W_HEIGHT - 50);
-	data.buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_bytes, &data.endian);
-	data.line_bytes /= 4;
+	fdf->mlx.mlx = mlx_init();
+	fdf->mlx.win = mlx_new_window(fdf->mlx.mlx, W_LENGHT, W_HEIGHT, "fdf");
+	fdf->mlx.img = mlx_new_image(fdf->mlx.mlx, W_LENGHT - 50, W_HEIGHT - 50);
+	fdf->mlx.buffer = (int *)mlx_get_data_addr(fdf->mlx.img, &fdf->mlx.bits_per_pixel, &fdf->mlx.line_bytes, &fdf->mlx.endian);
+	fdf->mlx.line_bytes /= 4;
 
-	map.rows = 0;
-	map.columns = 0;
-
+	fdf->map.rows = 0;
+	fdf->map.columns = 0;
 	parse(fdf, argv[1]);
 
-void	parse(t_fdf fdf, char *file_name)
-{
-	char		**map_char;
-	int			h;
-	int			fd;
 
-	map_char = 0;
-	fd = open(file_name, O_RDONLY);
-	while (get_next_line(fd))
-			map.rows++;;
-	close(fd);
-	map_char = malloc(n_rows * sizeof(char *));
-	if (map_char != 0)
-	{
-		map.map = malloc(n_rows * sizeof(int *));
-		if (map.map != 0)
-		{
-			fd = open(argv[1], O_RDONLY);
-		h = -1;
-		while (++h < map.rows)
-		{
-			map_char[h] = get_next_line(fd);
-			n_columns = (int)ft_count_words_str(map_char[h], ' ');
-			if (h != 1 && n_columns != (int)ft_count_words_str(map_char[h], ' '))
-					ft_putstr_fd("Invalid map", 1);
-			map.map[h] = ft_split_int(map_char[h], ' ');
-			free(map_char[h]);
-		}
-		free(map_char);
-		}
-	}
-}
-
-
-	int stack_interval_row = W_HEIGHT / n_rows;
-	int stack_interval_col = W_LENGHT / n_columns;
+	int stack_interval_row = W_HEIGHT / fdf->map.rows;
+	int stack_interval_col = W_LENGHT / fdf->map.columns;
 
 	//Initializing pixel and color & paint.
 	t_pixel pixel;
