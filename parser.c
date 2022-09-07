@@ -6,13 +6,13 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 14:37:14 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:40:21 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void    count_rows(t_fdf *fdf, char *file_name)
+static void    count_rows(t_fdf *fdf, char *file_name)
 {
         int                     fd;
 
