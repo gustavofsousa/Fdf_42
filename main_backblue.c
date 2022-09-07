@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 18:07:39 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 19:45:43 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	setup(t_fdf *fdf)
 	fdf->map.columns = 0;
 	fdf->map.interval_row = 0;
 	fdf->map.interval_col = 0;
-	fdf->p.x = -1;
-	fdf->p.y = -1;
+	fdf->p.x = 0;
+	fdf->p.y = 0;
 	fdf->p.color = ORANGE;
 }
 
