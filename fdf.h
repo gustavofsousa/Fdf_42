@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 14:44:09 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:47:26 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,8 @@ typedef struct s_fdf
 
 int		parse(t_fdf *fdf, char *filne_name);
 int		display_mlx_win(t_fdf *fdf);
+void	draw_win(t_fdf *fdf);
+
+
+
 
