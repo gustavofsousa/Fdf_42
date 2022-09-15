@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/15 14:57:32 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/15 20:10:27 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,48 @@ int	ft_abs(int	nbr)
 	return (nbr);
 }
 
-void	draw_line(t_fdf *fdf, int i, int j)
+void	draw_horiz(t_fdf *fdf, int point1, int point2)
 {
 	int	pos;
+	int	c;
 
-	if (fdf->p.y % fdf->map.interval_row == 0 || fdf->p.x % fdf->map.interval_col == 0)
+	c = 0;
+	while (c < fdf->map.interval_col)
 	{
-		pos = (i * fdf->mlx.line_bytes) + fdf->p.x;
-		if (fdf->map.map[i][j] != 0)
-			fdf->mlx.buffer[pos] = PINK;
+		pos = (fdf->p.y * fdf->mlx.line_bytes) + fdf->p.x + c;
+		if (point1 - point2 == 0)
+		{
+			if (point1 == 0)
+				fdf->mlx.buffer[pos] = WHITE;
+			else 
+				fdf->mlx.buffer[pos] = BLUE;
+		}
 		else
-			fdf->mlx.buffer[pos] = fdf->p.color;
+			fdf->mlx.buffer[pos] = GREEN;
+		c++;
 	}
 }
 
-void    draw_win_i(t_fdf *fdf)
+void	draw_vertic(t_fdf *fdf, int point1, int point2)
 {
-	int	i;
-	int	j;
+	int	pos;
+	int	c;
 
-	i = 0;
-	while (fdf->p.y < W_HEIGHT)
+	c = 0;
+	while (c < fdf->map.interval_row)
 	{
-		j = 0;
-		while (fdf->p.x < i * W_LENGHT)
+		pos = ((fdf->p.y + c) * fdf->mlx.line_bytes) + fdf->p.x;
+		if (point1 - point2 == 0)
 		{
-//			if (i != 0 && j != 0)
-				draw_line(fdf, i, j);
-			if (fdf->p.x % fdf->map.interval_col == 0)
-				j++;
-			fdf->p.x++;
+			if (point1 == 0)
+				fdf->mlx.buffer[pos] = WHITE;
+			else
+				fdf->mlx.buffer[pos] = BLUE;
 		}
-		if (fdf->p.y % fdf->map.interval_row == 0)
-			i++;
-		fdf->p.y++;
+		else
+			fdf->mlx.buffer[pos] = GREEN;
+		c++;
 	}
-	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
 
 void	draw_win(t_fdf *fdf)
@@ -63,19 +69,23 @@ void	draw_win(t_fdf *fdf)
 	int	j;
 
 	i = 0;
-	while (i < fdf->map.rows)
+	while (i < fdf->map.rows - 1)
 	{
 		j = 0;
-		while (j < fdf->map.columns)
+		fdf->p.x = 0;
+		while (j < fdf->map.columns - 1)
 		{
-			draw_line(fdf, i, j);
+			if (j < fdf->map.columns - 1)
+				draw_horiz(fdf, fdf->map.map[i][j], fdf->map.map[i][j + 1]);
+			if (i < fdf->map.columns - 1)
+				draw_vertic(fdf, fdf->map.map[i][j], fdf->map.map[i + 1][j]);
 			if (fdf->p.x % fdf->map.interval_col == 0)
 				j++;
-			fdf->p.x++;
+			fdf->p.x += fdf->map.interval_col;
 		}
 		if (fdf->p.y % fdf->map.interval_row == 0)
 			i++;
-		fdf->p.y++;
+		fdf->p.y += fdf->map.interval_row;
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
