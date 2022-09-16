@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 17:55:45 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/16 13:50:57 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef struct s_mlx
 	int		line_bytes;
 	int		endian;
 }	t_mlx;
+
+typedef struct	s_point
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_point;
 
 typedef struct	s_pixel
 {

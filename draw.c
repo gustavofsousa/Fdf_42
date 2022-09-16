@@ -6,11 +6,12 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/15 20:10:27 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/16 12:02:33 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
 
 int	ft_abs(int	nbr)
 {
@@ -18,6 +19,28 @@ int	ft_abs(int	nbr)
 		return (-nbr);
 	return (nbr);
 }
+
+void	do_isometric(t_fdf *fdf)
+{
+	// x é n_columns
+	// y is n_row
+	// z is map[i][j]
+	// alpha is 30 degree(to radians)
+	
+	double	angle = 2.0944;
+	double	alpha = 0.5236;
+	double	u;
+	double	v;
+	int		x;
+	int		y;
+	int		z;
+
+	x = fdf->map.i;
+	y = fdf->map.j;
+	u = x * cos(alpha) + y * cos(alpha + 120) + fdf->map.z * cos(alpha - 120);
+	v = x * sen(alpha) + y * sen(alpha + 120) + fdf->map.z * sen(alpha - 120);
+}
+
 
 void	draw_horiz(t_fdf *fdf, int point1, int point2)
 {
@@ -63,20 +86,23 @@ void	draw_vertic(t_fdf *fdf, int point1, int point2)
 	}
 }
 
+// Colocar a mesma função, diferenciar só a pos
+// Fazer struct com ponto. x y z.
+// Ao mudar a pos, já fazer multiplicar pelo resultado do isometric.
+
 void	draw_win(t_fdf *fdf)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < fdf->map.rows - 1)
+	t_point	p1;
+	t_point	p2;
+	fdf->map.i = 0;
+	while (fdf->map.i < fdf->map.rows - 1)
 	{
 		j = 0;
 		fdf->p.x = 0;
-		while (j < fdf->map.columns - 1)
+		while (fdf->map.j < fdf->map.columns - 1)
 		{
-			if (j < fdf->map.columns - 1)
-				draw_horiz(fdf, fdf->map.map[i][j], fdf->map.map[i][j + 1]);
+			if (fdf->map.j < fdf->map.columns - 1)
+				draw_horiz(fdf, (t_point){i, j, fdf->map.map[i][j]}, (t_point){i, j, fdf->map.map[i][j + 1]});
 			if (i < fdf->map.columns - 1)
 				draw_vertic(fdf, fdf->map.map[i][j], fdf->map.map[i + 1][j]);
 			if (fdf->p.x % fdf->map.interval_col == 0)
