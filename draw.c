@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/20 17:43:33 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/20 18:27:32 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_horiz(t_fdf *fdf, int p1_z, int p2_z)
 	while (c--)
 	{
 		screen = do_isometric(fdf, p1_z);
-		pos = (screen.y * fdf->mlx.line_bytes) + screen.x;
+		pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
 		if (p1_z - p2_z == 0)
 			if (p1_z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
@@ -78,7 +78,7 @@ void	draw_vertic(t_fdf *fdf, int p1_z, int p2_z)
 	while (c--)
 	{
 		screen = do_isometric(fdf, p1_z);
-		pos = (screen.y * fdf->mlx.line_bytes) + screen.x;
+		pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
 		if (p1_z - p2_z == 0)
 			if (p1_z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
