@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/20 15:51:53 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:37:50 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,16 @@ t_point	create_point(int x, int y, int z)
 }
 void	draw_win(t_fdf *fdf)
 {
-//	t_point	p;
-//	t_point	px_next;
-//	t_point	py_next;
+	t_point	p;
+	t_point	px_next;
+	t_point	py_next;
 	int	i;
 	int	j;
-	int xs;
-	int	ys;
-	int	pos;
+
+// 
+
+
+
 
 
 
@@ -133,28 +135,20 @@ void	draw_win(t_fdf *fdf)
 		fdf->p.x = 0;
 		while (j < fdf->map.columns - 1)
 		{
-			xs = (fdf->p.x - fdf->p.y) * (fdf->map.interval_col / 2);
-			ys = (fdf->p.x + fdf->p.y) * (fdf->map.interval_row / 2);
-
-			pos = (ys * fdf->mlx.line_bytes) + xs;
-			fdf->mlx.buffer[pos] = GREEN;
-	
-
-/*
+			p = create_point(i, j,  fdf->map.map[i][j]);
+			px_next = create_point(i, j,  fdf->map.map[i][j + 1]);
+			py_next = create_point(i, j,  fdf->map.map[i + 1][j]);
 			if (j < fdf->map.columns - 1)
 				draw_horiz(fdf, p, px_next);
 			if (i < fdf->map.columns - 1)
 				draw_vertic(fdf, p, py_next);
-*/
 			if (fdf->p.x % fdf->map.interval_col == 0)
 				j++;
-			fdf->p.x++;
-//			fdf->p.x += fdf->map.interval_col;
+			fdf->p.x += fdf->map.interval_col;
 		}
 		if (fdf->p.y % fdf->map.interval_row == 0)
 			i++;
-		fdf->p.y++;
-//		fdf->p.y += fdf->map.interval_row;
+		fdf->p.y += fdf->map.interval_row;
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
