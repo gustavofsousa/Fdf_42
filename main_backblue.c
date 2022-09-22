@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 15:24:16 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:35:19 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	setup(t_fdf *fdf)
 {
-
 	fdf->map.rows = 0;
 	fdf->map.columns = 0;
 	fdf->map.interval_row = 0;
@@ -28,23 +27,18 @@ int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 
-	if (argc = 2)
+	if (argc == 2)
 	{
 		setup(&fdf);
-		if (parse(&fdf, argv[1]));
+		if (parse(&fdf, argv[1]))
 			if (display_mlx_win(&fdf))
 				return (1);
-		else
-			ft_putendl_fd("Invalid map");
 	}
-	ft_putendl_fd("Missing arguments", 1);
+	ft_putendl_fd("Missing arguments or invalid map", 1);
 	return (0);
 }
 
-
-
-
-
+/*
 void	put_pixel_char(int pixel, int endian, int color, int *buffer)
 {//If need to use this check the tutorial. Line_bytes would need to change.
 	//if (data.bits_per_pixel != 32)
@@ -66,3 +60,4 @@ void	put_pixel_char(int pixel, int endian, int color, int *buffer)
         		buffer[pixel + 3] = (color >> 24);
     		}
 }
+*/

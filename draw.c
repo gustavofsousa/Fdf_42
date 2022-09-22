@@ -6,23 +6,17 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 14:43:41 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:32:28 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 
-int	ft_abs(int	nbr)
-{
-	if (nbr < 0)
-		return (-nbr);
-	return (nbr);
-}
-
 t_point	create_point(int x, int y, int z)
 {
 	t_point	p;
+
 	p.x = x;
 	p.y = y;
 	p.z = z;
@@ -31,25 +25,27 @@ t_point	create_point(int x, int y, int z)
 
 t_point	do_isometric(t_point p)
 {
-	double	angle = 2.0944;// 120;
-	double	alpha = 0.5236;// 30
+	double	angle;
+	double	alpha;
 	t_point	rtn;
-		
+
+	alpha = 0.5236; // 30					   
+	angle = 2.0944; // 120;
 	rtn.x = p.x * cos(alpha)
-			+ p.y * cos(alpha + angle)
-			+ p.z * cos(alpha - angle);
+		+ p.y * cos(alpha + angle)
+		+ p.z * cos(alpha - angle);
 	rtn.y = p.x * sin(alpha)
-			+ p.y * sin(alpha + angle)
-			+ p.z * sin(alpha - angle);
+		+ p.y * sin(alpha + angle)
+		+ p.z * sin(alpha - angle);
 	return (rtn);
 }
 
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int	dx;
-	int	pos;
-	int	dy;
-	int	pk;
+	int		dx;
+	int		pos;
+	int		dy;
+	int		pk;
 	t_point	s1;
 	t_point	s2;
 
@@ -76,9 +72,9 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 
 void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int	pos;
-	int	c;
-	int	steep;
+	int		pos;
+	int		c;
+	int		steep;
 	t_point	screen;
 
 	steep = p1.z != p2.z;
@@ -102,9 +98,9 @@ void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 
 void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int	pos;
-	int	c;
-	int	steep;
+	int		pos;
+	int		c;
+	int		steep;
 	t_point	screen;
 
 	steep = p1.z != p2.z;
@@ -144,7 +140,6 @@ void	draw_win(t_fdf *fdf)
 			p = create_point(fdf->p.x, fdf->p.y, fdf->map.map[i][j]);
 			px_next = create_point(fdf->p.x + 1, fdf->p.y, fdf->map.map[i][j + 1]);
 			py_next = create_point(fdf->p.x, fdf->p.y + 1, fdf->map.map[i + 1][j]);
-
 			if (j < fdf->map.columns - 1)
 				draw_horiz(fdf, p, px_next);
 			if (i < fdf->map.rows - 1)
@@ -159,4 +154,3 @@ void	draw_win(t_fdf *fdf)
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
-

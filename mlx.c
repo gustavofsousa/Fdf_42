@@ -6,12 +6,13 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:39:55 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 15:21:11 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:33:56 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
 int	key_press(int keycode, t_fdf *fdf)
 {
 	if (keycode == 53)
@@ -31,6 +32,7 @@ static void	add_mlx_hook(t_fdf *fdf)
 	mlx_hook(fdf->mlx.mlx, 2, 0, key_press, fdf);
 	mlx_hook(fdf->mlx.mlx, 17, 0, mouse_event, fdf);
 }
+*/
 
 int	display_mlx_win(t_fdf *fdf)
 {
@@ -46,7 +48,7 @@ int	display_mlx_win(t_fdf *fdf)
 				fdf->mlx.buffer = (int *)mlx_get_data_addr(fdf->mlx.img,
 						&fdf->mlx.bits_per_pixel, &fdf->mlx.line_bytes, &fdf->mlx.endian);
 				fdf->mlx.line_bytes /= 4;
-				add_mlx_hook(fdf);
+//				add_mlx_hook(fdf);
 				draw_win(fdf);
 				mlx_loop(fdf->mlx.mlx);
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/07 19:27:32 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 15:33:01 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static	int	count_columns(t_fdf *fdf, char **map_char)
 int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 {
 	int	fd;
-	int a_row;
+	int	a_row;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
@@ -81,7 +81,7 @@ int	parse(t_fdf *fdf, char *file_name)
 		fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
 		if (fdf->map.map != 0)
 			if (read_map(fdf, file_name, map_char))
-					return (1);
+				return (1);
 	}
 	return (0);
 }
