@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/20 19:53:23 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 12:05:01 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,9 @@ void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 				fdf->mlx.buffer[pos] = BLUE;
 			fdf->p.y++;
 		}
-		fdf->p.x -= fdf->map.interval_row;
+		fdf->p.y -= fdf->map.interval_row;
 	}
 	else
-		(void)c;
 		//draw_steep(fdf, p1, p2);
 }
 
@@ -153,13 +152,13 @@ void	draw_win(t_fdf *fdf)
 				draw_horiz(fdf, p, px_next);
 			if (i < fdf->map.columns - 1)
 				draw_vertic(fdf, p, py_next);
+			fdf->p.x += fdf->map.interval_col;
 			if (p.x % fdf->map.interval_col == 0)
 				j++;
-			fdf->p.x += fdf->map.interval_col;
 		}
+		fdf->p.y += fdf->map.interval_row;
 		if (p.y % fdf->map.interval_row == 0)
 			i++;
-		fdf->p.y += fdf->map.interval_row;
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
