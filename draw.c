@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 12:05:01 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:43:41 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,18 @@ t_point	create_point(int x, int y, int z)
 	return (p);
 }
 
-t_point	do_isometric(t_fdf *fdf, int z)
+t_point	do_isometric(t_point p)
 {
 	double	angle = 2.0944;// 120;
 	double	alpha = 0.5236;// 30
-	//double	angle = 1.0472;// 60;
 	t_point	rtn;
 		
-	rtn.x = fdf->p.x * cos(alpha)
-			+ fdf->p.y * cos(alpha + angle)
-			+ z * cos(alpha - angle);
-	rtn.y = fdf->p.x * sin(alpha)
-			+ fdf->p.y * sin(alpha + angle)
-			+ z * sin(alpha - angle);
+	rtn.x = p.x * cos(alpha)
+			+ p.y * cos(alpha + angle)
+			+ p.z * cos(alpha - angle);
+	rtn.y = p.x * sin(alpha)
+			+ p.y * sin(alpha + angle)
+			+ p.z * sin(alpha - angle);
 	return (rtn);
 }
 
@@ -50,27 +49,28 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 	int	dx;
 	int	pos;
 	int	dy;
-	int	p;
-	t_point	s;
+	int	pk;
+	t_point	s1;
+	t_point	s2;
 
-	s = do_isometric(fdf, p1.z);
-	dx = p2.x - p1.x; 
-	dy = p2.y - p1.y;
-	p = 2 * (dy + dx);
-	while (s.x < p2.x)
+	s1 = do_isometric(p1);
+	s2 = do_isometric(p2);
+	dx = s2.x - s1.x; 
+	dy = s2.y - s1.y;
+	pk = 2 * dy - dx;
+	while (s1.x < s2.x)
 	{
-		pos = (s.y * fdf->mlx.line_bytes) + s.x + 200;
+		s1 = do_isometric(p1);
+		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + 200;
 		fdf->mlx.buffer[pos] = GREEN;
-		if (p >= 0)
+		if (pk >= 0)
 		{
-			s.y++;
-			p = p + 2 * dy - 2 * dx;
+			s1.y++;
+			pk += 2 * (dy - dx);
 		}
 		else
-		{
-			p = p + 2 * dy;
-			s.x++;
-		}
+			pk += 2 * dy;
+		s1.x++;
 	}
 }
 
@@ -80,26 +80,24 @@ void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 	int	c;
 	int	steep;
 	t_point	screen;
-//inclinação
+
 	steep = p1.z != p2.z;
 	if (!steep)
 	{
 		c = fdf->map.interval_col;
 		while (c--)
 		{
-			screen = do_isometric(fdf, p1.z);
+			screen = do_isometric(p1);
 			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
 			if (p1.z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
 			else 
 				fdf->mlx.buffer[pos] = BLUE;
-			fdf->p.x++;
+			p1.x++;
 		}
-		fdf->p.x -= fdf->map.interval_col;
 	}
 	else
-		(void)c;
-		//draw_steep(fdf, p1, p2);
+		draw_steep(fdf, p1, p2);
 }
 
 void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
@@ -108,25 +106,24 @@ void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 	int	c;
 	int	steep;
 	t_point	screen;
-//inclinação
+
 	steep = p1.z != p2.z;
 	if (!steep)
 	{
 		c = fdf->map.interval_row;
 		while (c--)
 		{
-			screen = do_isometric(fdf, p1.z);
+			screen = do_isometric(p1);
 			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
 			if (p1.z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
 			else 
 				fdf->mlx.buffer[pos] = BLUE;
-			fdf->p.y++;
+			p1.y++;
 		}
-		fdf->p.y -= fdf->map.interval_row;
 	}
 	else
-		//draw_steep(fdf, p1, p2);
+		draw_steep(fdf, p1, p2);
 }
 
 void	draw_win(t_fdf *fdf)
@@ -142,7 +139,7 @@ void	draw_win(t_fdf *fdf)
 	{
 		j = 0;
 		fdf->p.x = 0;
-		while (j < fdf->map.columns - 1)
+		while (j < fdf->map.columns)
 		{
 			p = create_point(fdf->p.x, fdf->p.y, fdf->map.map[i][j]);
 			px_next = create_point(fdf->p.x + 1, fdf->p.y, fdf->map.map[i][j + 1]);
@@ -150,7 +147,7 @@ void	draw_win(t_fdf *fdf)
 
 			if (j < fdf->map.columns - 1)
 				draw_horiz(fdf, p, px_next);
-			if (i < fdf->map.columns - 1)
+			if (i < fdf->map.rows - 1)
 				draw_vertic(fdf, p, py_next);
 			fdf->p.x += fdf->map.interval_col;
 			if (p.x % fdf->map.interval_col == 0)
