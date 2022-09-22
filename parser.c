@@ -6,11 +6,22 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 15:33:01 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:24:00 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	calculate(t_fdf *fdf)
+{
+	int	h_img;
+
+	fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
+	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
+	h_img = fdf->map.interval_row * fdf->map.rows;
+	//fdf->map.offset = cos(0.0174533 * 30) * h_img;
+	fdf->map.offset = 100;
+}
 
 static void	count_rows(t_fdf *fdf, char *file_name)
 {
@@ -62,8 +73,7 @@ int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 		}
 		if (!count_columns(fdf, map_char))
 			return (0);
-		fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
-		fdf->map.interval_col = W_LENGHT / fdf->map.columns;
+		calculate(fdf);
 		return (1);
 	}
 	return (0);

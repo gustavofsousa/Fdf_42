@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/16 13:50:57 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:13:47 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef	struct	s_map
 	int	columns;
 	int	interval_row;
 	int	interval_col;
+	int	offset;
 }	t_map;
 
 typedef struct s_fdf

@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 15:32:28 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/22 20:13:34 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_point	do_isometric(t_point p)
 	double	alpha;
 	t_point	rtn;
 
-	alpha = 0.5236; // 30					   
-	angle = 2.0944; // 120;
+	alpha = 0.0174533 * 30; // 30					   
+	angle = 0.0174533 * 110;//2.0944; // 120;
 	rtn.x = p.x * cos(alpha)
 		+ p.y * cos(alpha + angle)
 		+ p.z * cos(alpha - angle);
@@ -43,30 +43,30 @@ t_point	do_isometric(t_point p)
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 {
 	int		dx;
-	int		pos;
 	int		dy;
 	int		pk;
+	int		pos;
 	t_point	s1;
 	t_point	s2;
 
-	s1 = do_isometric(p1);
+	//s1 = do_isometric(p1);
 	s2 = do_isometric(p2);
-	dx = s2.x - s1.x; 
-	dy = s2.y - s1.y;
+	dx = s2.x - p1.x; 
+	dy = s2.y - p1.y;
 	pk = 2 * dy - dx;
-	while (s1.x < s2.x)
+	while (p1.x < p2.x)
 	{
 		s1 = do_isometric(p1);
-		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + 200;
+		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
 		fdf->mlx.buffer[pos] = GREEN;
 		if (pk >= 0)
 		{
-			s1.y++;
+			p1.y++;
 			pk += 2 * (dy - dx);
 		}
 		else
 			pk += 2 * dy;
-		s1.x++;
+		p1.x++;
 	}
 }
 
@@ -84,7 +84,7 @@ void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 		while (c--)
 		{
 			screen = do_isometric(p1);
-			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
+			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + fdf->map.offset;
 			if (p1.z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
 			else 
@@ -110,7 +110,7 @@ void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 		while (c--)
 		{
 			screen = do_isometric(p1);
-			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + 200;
+			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + fdf->map.offset;
 			if (p1.z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
 			else 
@@ -130,6 +130,7 @@ void	draw_win(t_fdf *fdf)
 	int	i;
 	int	j;
 
+	fdf->map.offset = 100; //Fora daqui
 	i = 0;
 	while (i < fdf->map.rows - 1)
 	{
@@ -138,19 +139,19 @@ void	draw_win(t_fdf *fdf)
 		while (j < fdf->map.columns)
 		{
 			p = create_point(fdf->p.x, fdf->p.y, fdf->map.map[i][j]);
-			px_next = create_point(fdf->p.x + 1, fdf->p.y, fdf->map.map[i][j + 1]);
-			py_next = create_point(fdf->p.x, fdf->p.y + 1, fdf->map.map[i + 1][j]);
+			px_next = create_point(fdf->p.x + fdf->map.interval_col,
+						fdf->p.y, fdf->map.map[i][j + 1]);
+			py_next = create_point(fdf->p.x, fdf->p.y + fdf->map.interval_row,
+						fdf->map.map[i + 1][j]);
 			if (j < fdf->map.columns - 1)
 				draw_horiz(fdf, p, px_next);
 			if (i < fdf->map.rows - 1)
 				draw_vertic(fdf, p, py_next);
 			fdf->p.x += fdf->map.interval_col;
-			if (p.x % fdf->map.interval_col == 0)
-				j++;
+			j++;
 		}
 		fdf->p.y += fdf->map.interval_row;
-		if (p.y % fdf->map.interval_row == 0)
-			i++;
+		i++;
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }
