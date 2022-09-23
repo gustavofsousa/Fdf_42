@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/23 14:42:29 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/23 15:46:52 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_point	do_isometric(t_point p)
 	t_point	rtn;
 
 	alpha = 0.0174533 * 30; // 30					   
-	angle = 0.0174533 * 110;
+	angle = 0.0174533 * 110; //110
 	rtn.x = p.x * cos(alpha)
 		+ p.y * cos(alpha + angle)
 		+ p.z * cos(alpha - angle);
@@ -40,6 +40,7 @@ t_point	do_isometric(t_point p)
 	return (rtn);
 }
 
+/*
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 {
 	int		dx;
@@ -67,6 +68,120 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 		else
 			pk += 2 * dy;
 		p1.x++;
+	}
+}*/
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
+{
+	int	dx;
+	int	dy;
+	int	dz;
+	int	xs;
+	int	ys;
+	int	zs;
+	int	pk1;
+	int	pk2;
+	t_point	s1;
+	int pos;
+
+	dx = ft_abs(p2.x - p1.x);
+	dy = ft_abs(p2.y - p1.y);
+	dz = ft_abs(p2.z - p1.z);
+
+	if (p2.x > p1.x)
+		xs = 1;
+	else
+		xs = -1;
+	if (p2.y > p1.y)
+		ys = 1;
+	else
+		ys = -1;
+	if (p2.z > p1.z)
+		zs = 1;
+	else
+		zs = -1;
+
+	// Axis X
+	if (dx >= dy && dx >= dz)
+	{
+		pk1 = 2 * dy - dx;
+		pk2 = 2 * dz - dx;
+		while (p1.x != p2.x)
+		{
+			p1.x += xs;
+			if (pk1 >= 0)
+			{
+				p1.y += ys;
+				pk1 -= 2 * dx;
+			}
+			if (pk2 >= 0)
+			{
+				p1.z += zs;
+				pk2 -= 2 * dx;
+			}
+			pk1 += 2 * dy;
+			pk2 += 2 * dz;
+			s1 = do_isometric(p1);
+			pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
+			fdf->mlx.buffer[pos] = GREEN;
+		}
+	}
+	// Axis Y
+	else if (dy >= dx && dy >= dz)
+	{
+		pk1 = 2 * dx - dy;
+		pk2 = 2 * dz - dy;
+		while (p1.y != p2.y)
+		{
+			p1.y += ys;
+			if (pk1 >= 0)
+			{
+				p1.x += xs;
+				pk1 -= 2 * dy;
+			}
+			if (pk2 >= 0)
+			{
+				p1.z += zs;
+				pk2 -= 2 * dy;
+			}
+			pk1 += 2 * dx;
+			pk2 += 2 * dz;
+			s1 = do_isometric(p1);
+			pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
+			fdf->mlx.buffer[pos] = GREEN;
+		}
+	}
+	// Axis Z
+	else
+	{
+		pk1 = 2 * dy - dz;
+		pk2 = 2 * dx - dz;
+		while (p1.z != p2.z)
+		{
+			p1.z += zs;
+			if (pk1 >= 0)
+			{
+				p1.y += ys;
+				pk1 -= 2 * dz;
+			}
+			if (pk2 >= 0)
+			{
+				p1.x += xs;
+				pk2 -= 2 * dx;
+			}
+			pk1 += 2 * dy;
+			pk2 += 2 * dx;
+			s1 = do_isometric(p1);
+			pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
+			fdf->mlx.buffer[pos] = GREEN;
+		}
 	}
 }
 
