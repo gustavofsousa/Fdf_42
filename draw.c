@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 20:13:34 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:42:29 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_point	do_isometric(t_point p)
 	t_point	rtn;
 
 	alpha = 0.0174533 * 30; // 30					   
-	angle = 0.0174533 * 110;//2.0944; // 120;
+	angle = 0.0174533 * 110;
 	rtn.x = p.x * cos(alpha)
 		+ p.y * cos(alpha + angle)
 		+ p.z * cos(alpha - angle);
@@ -130,7 +130,7 @@ void	draw_win(t_fdf *fdf)
 	int	i;
 	int	j;
 
-	fdf->map.offset = 100; //Fora daqui
+	//fdf->map.offset = 100; //Fora daqui
 	i = 0;
 	while (i < fdf->map.rows - 1)
 	{

@@ -6,33 +6,36 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:39:55 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 15:33:56 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/23 14:41:40 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
 int	key_press(int keycode, t_fdf *fdf)
 {
 	if (keycode == 53)
-		mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.img);
-	exit (0);
+	{
+		mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
+		mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
+		exit (0);
+	}
+	return (0);
 }
 
-int	mouse_event(t_fdf *fdf)
+int	close_event(t_fdf *fdf)
 {
-	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.img);
-	exit (0);
+	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
+	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
+	exit(0);
+	return (0);
 }
 
 static void	add_mlx_hook(t_fdf *fdf)
 {
-	mlx_loop_hook(fdf->mlx.mlx, key_press, fdf);
-	mlx_hook(fdf->mlx.mlx, 2, 0, key_press, fdf);
-	mlx_hook(fdf->mlx.mlx, 17, 0, mouse_event, fdf);
+	mlx_key_hook(fdf->mlx.win, key_press, fdf);
+	mlx_hook(fdf->mlx.win, 17, 0, close_event, fdf);
 }
-*/
 
 int	display_mlx_win(t_fdf *fdf)
 {
@@ -48,7 +51,8 @@ int	display_mlx_win(t_fdf *fdf)
 				fdf->mlx.buffer = (int *)mlx_get_data_addr(fdf->mlx.img,
 						&fdf->mlx.bits_per_pixel, &fdf->mlx.line_bytes, &fdf->mlx.endian);
 				fdf->mlx.line_bytes /= 4;
-//				add_mlx_hook(fdf);
+				mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
+				add_mlx_hook(fdf);
 				draw_win(fdf);
 				mlx_loop(fdf->mlx.mlx);
 				return (1);
