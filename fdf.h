@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/22 18:13:47 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/23 15:51:07 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "./include/get_next_line_42/get_next_line.h"
 #include "./mlx/mlx.h"
 #include <fcntl.h>
+#include <math.h>
 
 #define W_HEIGHT 460
 #define W_LENGHT 740

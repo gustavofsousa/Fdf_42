@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/23 14:42:48 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:12:43 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	calculate(t_fdf *fdf)
 	fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
 	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
 	h_img = fdf->map.interval_row * fdf->map.rows;
-	//fdf->map.offset = cos(0.0174533 * 30) * h_img;
-	fdf->map.offset = 330;
+//	fdf->map.offset = cos(0.0174533 * 20) * h_img;
+fdf->map.offset = 355;
 }
 
 static void	count_rows(t_fdf *fdf, char *file_name)
