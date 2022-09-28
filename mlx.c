@@ -6,13 +6,13 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:39:55 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/23 16:56:47 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 10:26:53 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	key_press(int keycode, t_fdf *fdf)
+static int	key_press(int keycode, t_fdf *fdf)
 {
 	if (keycode == 53)
 	{
@@ -23,7 +23,7 @@ int	key_press(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-int	close_event(t_fdf *fdf)
+static int	close_event(t_fdf *fdf)
 {
 	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
 	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);

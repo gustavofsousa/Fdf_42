@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wextra -Wall -Werror
 
-SRCS = main_backblue.c parser.c draw.c mlx.c
+SRCS = main.c parser.c draw.c mlx.c
 
 SRC_GNL = include/get_next_line_42/get_next_line.c \
 			include/get_next_line_42/get_next_line_utils.c \

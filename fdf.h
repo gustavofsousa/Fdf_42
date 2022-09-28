@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/23 15:51:07 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 11:25:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ typedef struct	s_point
 	int	y;
 	int	z;
 }	t_point;
+
+typedef struct	s_var_steep
+{
+	int dx;
+	int	dy;
+	int	dz;
+	int	xs;
+	int	ys;
+	int	zs;
+	int	pk1;
+	int	pk2;
+}	t_var_steep;
 
 typedef struct	s_pixel
 {
