@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 11:25:12 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 11:35:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_fdf
 int		parse(t_fdf *fdf, char *filne_name);
 int		display_mlx_win(t_fdf *fdf);
 void	draw_win(t_fdf *fdf);
-
-
+void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
+t_point	do_isometric(t_point p);
 
 
