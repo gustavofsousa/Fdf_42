@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 19:33:19 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 19:59:28 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	get_color(t_fdf *fdf, char *str, int row)
 			if (*str == ',')
 			{
 				++str;
-				while (str[len] != ' ' || str[len] || str[len] != '\n')
+				while (str[len] != ' ' && str[len] && str[len] != '\n')
 					len++;
 				fdf->map.colors[row] = malloc(len * sizeof(int));
 				if (fdf->map.colors[row] != NULL)
