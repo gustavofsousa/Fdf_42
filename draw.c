@@ -6,13 +6,13 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 11:52:52 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 11:57:37 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	create_point(int x, int y, int z)
+static t_point	create_point(int x, int y, int z)
 {
 	t_point	p;
 
@@ -22,24 +22,7 @@ t_point	create_point(int x, int y, int z)
 	return (p);
 }
 
-t_point	do_isometric(t_point p)
-{
-	double	angle;
-	double	alpha;
-	t_point	rtn;
-
-	alpha = 0.0174533 * 20; // 30					   
-	angle = 0.0174533 * 120; //110
-	rtn.x = p.x * cos(alpha)
-		+ p.y * cos(alpha + angle)
-		+ p.z * cos(alpha - angle);
-	rtn.y = p.x * sin(alpha)
-		+ p.y * sin(alpha + angle)
-		+ p.z * sin(alpha - angle);
-	return (rtn);
-}
-
-void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
+static void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 {
 	int		pos;
 	int		c;
@@ -65,7 +48,7 @@ void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 		draw_steep(fdf, p1, p2);
 }
 
-void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
+static void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 {
 	int		pos;
 	int		c;
