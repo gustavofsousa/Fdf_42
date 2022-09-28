@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/23 15:49:43 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 10:05:13 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,23 +245,26 @@ void	draw_win(t_fdf *fdf)
 	int	i;
 	int	j;
 
-	//fdf->map.offset = 100; //Fora daqui
 	i = 0;
-	while (i < fdf->map.rows - 1)
+	while (i < fdf->map.rows)
 	{
 		j = 0;
 		fdf->p.x = 0;
 		while (j < fdf->map.columns)
 		{
 			p = create_point(fdf->p.x, fdf->p.y, fdf->map.map[i][j]);
-			px_next = create_point(fdf->p.x + fdf->map.interval_col,
-						fdf->p.y, fdf->map.map[i][j + 1]);
-			py_next = create_point(fdf->p.x, fdf->p.y + fdf->map.interval_row,
-						fdf->map.map[i + 1][j]);
 			if (j < fdf->map.columns - 1)
+			{
+				px_next = create_point(fdf->p.x + fdf->map.interval_col,
+					fdf->p.y, fdf->map.map[i][j + 1]);
 				draw_horiz(fdf, p, px_next);
+			}
 			if (i < fdf->map.rows - 1)
+			{
+				py_next = create_point(fdf->p.x, fdf->p.y + fdf->map.interval_row,
+					fdf->map.map[i + 1][j]);
 				draw_vertic(fdf, p, py_next);
+			}
 			fdf->p.x += fdf->map.interval_col;
 			j++;
 		}
