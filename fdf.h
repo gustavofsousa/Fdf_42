@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 11:35:12 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 12:11:53 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		line_bytes;
 	int		endian;
+	int		win_size_x;
+	int		win_size_y;
 }	t_mlx;
 
 typedef struct	s_point
