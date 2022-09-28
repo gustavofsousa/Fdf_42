@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:19:47 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 10:51:54 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 14:40:41 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-int			*ft_split_int(char const *s, char c);
 size_t		ft_count_words_str(char const *s, char sep);
 int			ft_abs(int n);
 

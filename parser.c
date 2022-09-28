@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 12:11:24 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 19:26:17 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 		while (++a_row < fdf->map.rows)
 		{
 			map_char[a_row] = get_next_line(fd);
-			fdf->map.map[a_row] = ft_split_int(map_char[a_row], ' ');
+			fdf->map.map[a_row] = ft_split_int(fdf, map_char[a_row], ' ');
 		}
 		if (!count_columns(fdf, map_char))
 			return (0);

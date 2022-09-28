@@ -6,11 +6,11 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/08/29 15:19:36 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/09/28 19:33:19 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
 static char	**split(char	**str_splitted, char const *s, char sep)
 {
@@ -36,7 +36,31 @@ static char	**split(char	**str_splitted, char const *s, char sep)
 	return (str_splitted);
 }
 
-int	*ft_split_int(char const *s, char c)
+static void	get_color(t_fdf *fdf, char *str, int row)
+{
+	int	t;
+	int	len;
+//DAR FREE DEPOIS
+	fdf->map.colors = malloc(row * sizeof(int *));
+	t = 0;
+	if (fdf->map.colors != NULL)
+		while (*str++)
+		{
+			len = 0;
+			if (*str == ',')
+			{
+				++str;
+				while (str[len] != ' ' || str[len] || str[len] != '\n')
+					len++;
+				fdf->map.colors[row] = malloc(len * sizeof(int));
+				if (fdf->map.colors[row] != NULL)
+					fdf->map.colors[row][t] = ft_atoi(str);
+				t++;
+			}
+		}
+}
+
+int	*ft_split_int(t_fdf *fdf, char const *s, char c)
 {
 	char	**str_splitted;
 	size_t	qtd_words;
@@ -53,6 +77,9 @@ int	*ft_split_int(char const *s, char c)
 	while (qtd_words--)
 	{
 		int_splitted[qtd_words] = ft_atoi(str_splitted[qtd_words]);
+		if (ft_strchr((char *)s, ','))
+				get_color(fdf, (char *)s, qtd_words);
+		fdf->map.colors++;
 		free(str_splitted[qtd_words]);
 	}
 	free (str_splitted);
