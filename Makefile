@@ -1,33 +1,41 @@
 NAME = fdf
 
+# compiler
 CC = cc
+CFLAGS = -Wextra -Wall -Werror -g
 
-CFLAGS = -Wextra -Wall -Werror
+# directories
+SRCDIR	= ./src/
+INCDIR	= ./includes/
+OBJDIR	= ./obj/
 
-SRCS = main.c parser.c draw.c mlx.c draw_steep.c \
+# source/ objects files
+SRC = main.c parser.c draw.c mlx.c draw_steep.c \
 	   isometric.c ft_split_int.c
-
 SRC_GNL = include/get_next_line_42/get_next_line.c \
 			include/get_next_line_42/get_next_line_utils.c \
 
+OBJ = $(addprefix $(OBJDIR), $(SRC:.c=.o))
+OBJ_GNL = $(SRC_GNL:.c=.o)
+
+# include
 INC = ./include/libft_42 \
-	  ./include/get_next_line_42 \
+	  ./include/get_next_line_42 
 
-OBJS = $(SRCS:.c=.o)
-
-OBJS_GNL = $(SRC_GNL:.c=.o)
-
+# mlx library
 LIBXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit 
 
+# ft library
 LIBFT = ./include/libft_42/libft.a
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -g -Imlx -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(OBJS) libft libmlx gnl
-	$(CC) -g $(OBJS) $(LIBXFLAGS) $(LIBFT) get_next_line.o get_next_line_utils.o -o $(NAME)
+%.o: %.c
+	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+
+$(NAME): $(OBJ) libft libmlx gnl
+	$(CC) $(OBJ) $(LIBXFLAGS) $(LIBFT) get_next_line.o get_next_line_utils.o -o $(NAME)
 
 libft:
 	@make all -C include/libft_42
@@ -41,8 +49,8 @@ gnl: $(SRC_GNL)
 re: fclean all
 
 clean:
-	@rm -f $(OBJS)
-	@rm -f $(OBJS_GNL)
+	@rm -f $(OBJ)
+	@rm -f $(OBJ_GNL)
 	@make -C include/libft_42 clean
 
 fclean: clean
