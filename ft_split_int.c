@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 11:44:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 19:59:28 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/10/05 11:38:29 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	**split(char	**str_splitted, char const *s, char sep)
 	return (str_splitted);
 }
 
+/*
 static void	get_color(t_fdf *fdf, char *str, int row)
 {
 	int	t;
@@ -59,8 +60,9 @@ static void	get_color(t_fdf *fdf, char *str, int row)
 			}
 		}
 }
+*/
 
-int	*ft_split_int(t_fdf *fdf, char const *s, char c)
+int	*ft_split_int(char *s, char c)
 {
 	char	**str_splitted;
 	size_t	qtd_words;
@@ -77,9 +79,6 @@ int	*ft_split_int(t_fdf *fdf, char const *s, char c)
 	while (qtd_words--)
 	{
 		int_splitted[qtd_words] = ft_atoi(str_splitted[qtd_words]);
-		if (ft_strchr((char *)s, ','))
-				get_color(fdf, (char *)s, qtd_words);
-		fdf->map.colors++;
 		free(str_splitted[qtd_words]);
 	}
 	free (str_splitted);
