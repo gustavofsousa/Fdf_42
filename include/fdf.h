@@ -6,13 +6,15 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/10/05 11:34:54 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/10/05 15:53:08 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/libft_42/libft.h"
-#include "./include/get_next_line_42/get_next_line.h"
-#include "./mlx/mlx.h"
+#ifndef FDF_H
+# define FDF_H
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
+# include "../miniLibX/mlx.h"
 #include <fcntl.h>
 #include <math.h>
 
@@ -113,4 +115,4 @@ void	draw_win(t_fdf *fdf);
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
 int		*ft_split_int(char *str, char c);
-
+#endif
