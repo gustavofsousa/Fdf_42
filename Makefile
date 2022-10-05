@@ -1,3 +1,5 @@
+
+MAKEFLAGS	= --silent
 NAME = fdf
 
 # compiler
@@ -39,28 +41,28 @@ FT_LNK	= -L ./libft -l ft
 all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
 obj:
-	@mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	@$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
-	@make -C $(FT)
+	make -C $(FT)
 
 $(MLX_LIB):
-	@make -C $(MLX)
+	make -C $(MLX)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
 
 clean:
-	@rm -rf $(OBJDIR)
-	@make -C $(FT) clean
-	@make -C $(MLX) clean
+	rm -rf $(OBJDIR)
+	make -C $(FT) clean
+	make -C $(MLX) clean
 
 fclean: clean
-	@rm -rf $(NAME)
-	@make -C $(FT) fclean
+	rm -rf $(NAME)
+	make -C $(FT) fclean
 
 re: fclean all
 
