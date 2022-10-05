@@ -8,7 +8,6 @@ CFLAGS = -Wextra -Wall -Werror -g
 SRCDIR	=	 ./src/
 INCDIR	=	 ./include/
 OBJDIR	=	 ./obj/
-GNLDIR	=	 ./get_next_line/
 
 # source / objects files
 SRC =		main.c \
@@ -37,17 +36,13 @@ FT_LIB	= $(FT)/libft.a
 FT_INC	= -I ./libft
 FT_LNK	= -L ./libft -l ft
 
-# get next line
-GNL		= ./get_next_line/
-GNL_INC = -I ./get_next_line
-
 all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
 
 obj:
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) $(GNL_INC) -I $(INCDIR) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 	@make -C $(FT)
@@ -56,7 +51,7 @@ $(MLX_LIB):
 	@make -C $(MLX)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
 
 clean:
 	@rm -rf $(OBJDIR)
