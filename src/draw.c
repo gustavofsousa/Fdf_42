@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 11:57:37 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/09 11:04:16 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ static t_point	create_point(int x, int y, int z)
 
 static void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int		pos;
 	int		c;
 	int		steep;
-	t_point	screen;
 
 	steep = p1.z != p2.z;
 	if (!steep)
@@ -35,12 +33,7 @@ static void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 		c = fdf->map.interval_col;
 		while (c--)
 		{
-			screen = do_isometric(p1);
-			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + fdf->map.offset;
-			if (p1.z == 0)
-				fdf->mlx.buffer[pos] = WHITE;
-			else 
-				fdf->mlx.buffer[pos] = BLUE;
+			please_put_my_pixel(fdf, p1);
 			p1.x++;
 		}
 	}
@@ -50,10 +43,8 @@ static void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
 
 static void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 {
-	int		pos;
 	int		c;
 	int		steep;
-	t_point	screen;
 
 	steep = p1.z != p2.z;
 	if (!steep)
@@ -61,12 +52,7 @@ static void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 		c = fdf->map.interval_row;
 		while (c--)
 		{
-			screen = do_isometric(p1);
-			pos = (screen.y * fdf->mlx.line_bytes) + screen.x + fdf->map.offset;
-			if (p1.z == 0)
-				fdf->mlx.buffer[pos] = WHITE;
-			else 
-				fdf->mlx.buffer[pos] = BLUE;
+			please_put_my_pixel(fdf, p1);
 			p1.y++;
 		}
 	}

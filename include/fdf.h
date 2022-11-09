@@ -6,20 +6,20 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/10/05 15:53:08 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/09 11:01:23 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # include "../libft/libft.h"
-# include "../get_next_line/get_next_line.h"
+# include "./get_next_line.h"
 # include "../miniLibX/mlx.h"
 #include <fcntl.h>
 #include <math.h>
 
-#define W_HEIGHT 460
-#define W_LENGHT 740
+#define W_HEIGHT 400
+#define W_LENGHT 270
 
 #define LIGHT_BLUE	0XABCDEF
 #define GREEN_1		0X138D75
@@ -85,10 +85,8 @@ typedef struct	s_pixel
 
 typedef struct	s_colors
 {
-	char	***map;
-	//int		**map;
-	int		x;
-	int		y;
+	int		**map;
+	int		flag;
 
 }	t_colors;
 
@@ -99,7 +97,9 @@ typedef	struct	s_map
 	int	columns;
 	int	interval_row;
 	int	interval_col;
-	int	offset;
+	int	offset_x;
+	int	offset_y;
+	t_colors	colors;
 }	t_map;
 
 typedef struct s_fdf
@@ -114,5 +114,6 @@ int		display_mlx_win(t_fdf *fdf);
 void	draw_win(t_fdf *fdf);
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
+void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 int		*ft_split_int(char *str, char c);
 #endif

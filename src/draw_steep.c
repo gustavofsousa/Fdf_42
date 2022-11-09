@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:29 by gusousa           #+#    #+#             */
-/*   Updated: 2022/09/28 11:32:54 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/09 11:04:45 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ static void	define_increase(t_point p1, t_point p2, t_var_steep *stp)
 
 static void	advance_axis_X(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
-	t_point	s1;
-	int	pos;
-
 	stp.pk1 = 2 * stp.dy - stp.dx;
 	stp.pk2 = 2 * stp.dz - stp.dx;
 	while (p1.x != p2.x)
@@ -50,18 +47,13 @@ static void	advance_axis_X(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 		}
 		stp.pk1 += 2 * stp.dy;
 		stp.pk2 += 2 * stp.dz;
-		s1 = do_isometric(p1);
-		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
-		fdf->mlx.buffer[pos] = GREEN;
+		please_put_my_pixel(fdf, p1);
 	}
 	
 }
 
 static void	advance_axis_Y(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
-	t_point	s1;
-	int		pos;
-
 	stp.pk1 = 2 * stp.dx - stp.dy;
 	stp.pk2 = 2 * stp.dz - stp.dy;
 	while (p1.y != p2.y)
@@ -79,17 +71,12 @@ static void	advance_axis_Y(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 		}
 		stp.pk1 += 2 * stp.dx;
 		stp.pk2 += 2 * stp.dz;
-		s1 = do_isometric(p1);
-		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
-		fdf->mlx.buffer[pos] = GREEN;
+		please_put_my_pixel(fdf, p1);
 	}
 }
 
 static void	advance_axis_Z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
-	t_point	s1;
-	int		pos;
-
 	stp.pk1 = 2 * stp.dy - stp.dz;
 	stp.pk2 = 2 * stp.dx - stp.dz;
 	while (p1.z != p2.z)
@@ -107,9 +94,7 @@ static void	advance_axis_Z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 		}
 		stp.pk1 += 2 * stp.dy;
 		stp.pk2 += 2 * stp.dx;
-		s1 = do_isometric(p1);
-		pos = (s1.y * fdf->mlx.line_bytes) + s1.x + fdf->map.offset;
-		fdf->mlx.buffer[pos] = GREEN;
+		please_put_my_pixel(fdf, p1);
 	}
 }
 
