@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/09 11:10:15 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:26:43 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_point	do_isometric(t_point p)
 	double	alpha;
 	t_point	rtn;
 
-	alpha = 0.0174533 * 60; // 30
-	angle = 0.0174533 * -40; //110
+	alpha = 0.0174533 * 120;
+	angle = 0.0174533 * 150;
 	rtn.x = p.x * cos(alpha)
 		+ p.y * cos(alpha + angle)
 		+ p.z * cos(alpha - angle);
@@ -32,7 +32,7 @@ t_point	do_isometric(t_point p)
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 {
 	t_point	p;
-	int	pos;
+	int		pos;
 
 	p = do_isometric(p_in);
 	pos = (p.y * fdf->mlx.line_bytes) + p.x;

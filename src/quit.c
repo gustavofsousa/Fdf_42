@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_words_str.c                               :+:      :+:    :+:   */
+/*   quit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 16:49:20 by gusousa          ###   ########.fr       */
+/*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
+/*   Updated: 2022/11/17 17:13:52 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/fdf.h"
 
-int	ft_count_words_str(char const *s, char sep)
+void	quit(t_fdf fdf)
 {
 	int	i;
-	int	qtd_word;
-	int	next;
 
-	i = 0;
-	qtd_word = 0;
-	while (s[i])
+	i = -1;
+	if (fdf.map.map)
 	{
-		next = i + 1;
-		if (s[i] != sep && (s[next] == sep || s[next] == '\0'))
-			qtd_word++;
-		i++;
+		while (fdf.map.map[++i])
+			free(fdf.map.map[i]);
+		free(fdf.map.map);
 	}
-	return (qtd_word);
+
+
 }

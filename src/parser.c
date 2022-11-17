@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/09 10:02:17 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:26:08 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	calculate(t_fdf *fdf)
 {
 	fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
 	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
-	fdf->map.offset_x = fdf->mlx.win_size_x / 2;
-	fdf->map.offset_y = fdf->mlx.win_size_y / 2;
+	fdf->map.offset_x = fdf->mlx.win_size_x / 3;
+	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
 }
 
 static void	count_rows(t_fdf *fdf, char *file_name)
@@ -39,10 +39,10 @@ static	int	count_columns(t_fdf *fdf, char **map_char)
 	int	count;
 
 	a_row = 0;
-	count = (int)ft_count_words_str(map_char[a_row], ' ');
+	count = ft_count_words_str(map_char[a_row], ' ');
 	while (map_char[a_row])
 	{
-		if (count != (int)ft_count_words_str(map_char[a_row++], ' '))
+		if (count != ft_count_words_str(map_char[a_row++], ' '))
 		{
 			ft_putendl_fd("Invalid map", 1);
 			return (0);
@@ -54,6 +54,13 @@ static	int	count_columns(t_fdf *fdf, char **map_char)
 	return (1);
 }
 
+/**
+ * Extrai cada linha do arquivo
+ * Conta qtd_colunas
+ * insere na struct mapa
+ * está também pegando cor
+ * e splitando
+ */
 int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 {
 	int	fd;
@@ -76,6 +83,10 @@ int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 	return (0);
 }
 
+/**
+ * Analisar o mapa
+ * Mallocs do tamanho de qtd_linhas.
+ */
 int	parse(t_fdf *fdf, char *file_name)
 {
 	char	**map_char;

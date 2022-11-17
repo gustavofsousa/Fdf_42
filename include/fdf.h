@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/09 11:01:23 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:00:06 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,9 @@ void	draw_win(t_fdf *fdf);
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
+
 int		*ft_split_int(char *str, char c);
+int		ft_count_words_str(char const *s, char sep);
+
+void	quit(t_fdf fdf);
 #endif

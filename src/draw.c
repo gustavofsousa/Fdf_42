@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/09 11:04:16 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/17 16:11:48 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
 		draw_steep(fdf, p1, p2);
 }
 
-static void	draw_the_L(t_fdf *fdf, int i, int j)
+static void	draw_the_l(t_fdf *fdf, int i, int j)
 {
 	t_point	p;
 	t_point	px_next;
@@ -70,13 +70,13 @@ static void	draw_the_L(t_fdf *fdf, int i, int j)
 	if (j < fdf->map.columns - 1)
 	{
 		px_next = create_point(fdf->p.x + fdf->map.interval_col,
-			fdf->p.y, fdf->map.map[i][j + 1]);
+				fdf->p.y, fdf->map.map[i][j + 1]);
 		draw_horiz(fdf, p, px_next);
 	}
 	if (i < fdf->map.rows - 1)
 	{
 		py_next = create_point(fdf->p.x, fdf->p.y + fdf->map.interval_row,
-			fdf->map.map[i + 1][j]);
+				fdf->map.map[i + 1][j]);
 		draw_vertic(fdf, p, py_next);
 	}
 }
@@ -93,7 +93,7 @@ void	draw_win(t_fdf *fdf)
 		fdf->p.x = 0;
 		while (j < fdf->map.columns)
 		{
-			draw_the_L(fdf, i, j);
+			draw_the_l(fdf, i, j);
 			fdf->p.x += fdf->map.interval_col;
 			j++;
 		}

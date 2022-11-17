@@ -21,7 +21,7 @@ SRC =		main.c \
 	  		ft_split_int.c \
 			ft_count_words_str.c \
 			get_next_line.c \
-			get_next_line_utils.c 
+			get_next_line_utils.c quit.c
 
 OBJ += $(addprefix $(OBJDIR), $(SRC:.c=.o))
 # OBJ += $(addprefix $(OBJDIR), $(SRC_GNL:.c=.o))

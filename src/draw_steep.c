@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:29 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/09 11:04:45 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/17 16:09:35 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	define_increase(t_point p1, t_point p2, t_var_steep *stp)
 		stp->zs = -1;
 }
 
-static void	advance_axis_X(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
+static void	advance_axis_x(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
 	stp.pk1 = 2 * stp.dy - stp.dx;
 	stp.pk2 = 2 * stp.dz - stp.dx;
@@ -49,10 +49,9 @@ static void	advance_axis_X(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 		stp.pk2 += 2 * stp.dz;
 		please_put_my_pixel(fdf, p1);
 	}
-	
 }
 
-static void	advance_axis_Y(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
+static void	advance_axis_y(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
 	stp.pk1 = 2 * stp.dx - stp.dy;
 	stp.pk2 = 2 * stp.dz - stp.dy;
@@ -75,7 +74,7 @@ static void	advance_axis_Y(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 	}
 }
 
-static void	advance_axis_Z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
+static void	advance_axis_z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 {
 	stp.pk1 = 2 * stp.dy - stp.dz;
 	stp.pk2 = 2 * stp.dx - stp.dz;
@@ -98,7 +97,6 @@ static void	advance_axis_Z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 	}
 }
 
-
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 {
 	t_var_steep	stp;
@@ -107,13 +105,10 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 	stp.dy = ft_abs(p2.y - p1.y);
 	stp.dz = ft_abs(p2.z - p1.z);
 	define_increase(p1, p2, &stp);
-	// Axis X
 	if (stp.dx >= stp.dy && stp.dx >= stp.dz)
-		advance_axis_X(fdf, stp, p1, p2);
-	// Axis Y
+		advance_axis_x(fdf, stp, p1, p2);
 	else if (stp.dy >= stp.dx && stp.dy >= stp.dz)
-		advance_axis_Y(fdf, stp, p1, p2);
-	// Axis Z
+		advance_axis_y(fdf, stp, p1, p2);
 	else
-		advance_axis_Z(fdf, stp, p1, p2);
+		advance_axis_z(fdf, stp, p1, p2);
 }
