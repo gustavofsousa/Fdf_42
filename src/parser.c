@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 17:26:08 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:36:22 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ static void	count_rows(t_fdf *fdf, char *file_name)
 	}
 }
 
-static	int	count_columns(t_fdf *fdf, char **map_char)
+static	int	count_columns(t_fdf *fdf)
 {
 	int	a_row;
 	int	count;
 
 	a_row = 0;
-	count = ft_count_words_str(map_char[a_row], ' ');
-	while (map_char[a_row])
+	count = ft_count_words_str(fdf->map.map_char[a_row], ' ');
+	while (fdf->map.map_char[a_row])
 	{
-		if (count != ft_count_words_str(map_char[a_row++], ' '))
+		if (count != ft_count_words_str(fdf->map.map_char[a_row++], ' '))
 		{
 			ft_putendl_fd("Invalid map", 1);
 			return (0);
 		}
-		free(map_char[a_row]);
+		free(fdf->map.map_char[a_row]);
 	}
-	free(map_char);
+	free(fdf->map.map_char);
 	fdf->map.columns = count;
 	return (1);
 }
@@ -61,7 +61,7 @@ static	int	count_columns(t_fdf *fdf, char **map_char)
  * está também pegando cor
  * e splitando
  */
-int	read_map(t_fdf *fdf, char *file_name, char **map_char)
+int	read_map(t_fdf *fdf, char *file_name)
 {
 	int	fd;
 	int	a_row;
@@ -72,10 +72,10 @@ int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 		a_row = -1;
 		while (++a_row < fdf->map.rows)
 		{
-			map_char[a_row] = get_next_line(fd);
-			fdf->map.map[a_row] = ft_split_int(map_char[a_row], ' ');
+			fdf->map.map_char[a_row] = get_next_line(fd);
+			fdf->map.map[a_row] = ft_split_int(fdf->map.map_char[a_row], ' ');
 		}
-		if (!count_columns(fdf, map_char))
+		if (!count_columns(fdf))
 			return (0);
 		calculate(fdf);
 		return (1);
@@ -84,22 +84,25 @@ int	read_map(t_fdf *fdf, char *file_name, char **map_char)
 }
 
 /**
- * Analisar o mapa
- * Mallocs do tamanho de qtd_linhas.
+ * Receber o mapa com gnl
+ * Colocar em char **
+ * Converter para int **
+ * Verificar se é um mapa válido
+ * Guardar as cores
  */
 int	parse(t_fdf *fdf, char *file_name)
 {
-	char	**map_char;
-
 	count_rows(fdf, file_name);
-	map_char = 0;
-	map_char = malloc(fdf->map.rows * sizeof(char *));
-	if (map_char != 0)
+	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
+	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
+	if (fdf->map.map_char && fdf->map.map)
 	{
-		fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
-		if (fdf->map.map != 0)
-			if (read_map(fdf, file_name, map_char))
-				return (1);
+		if (read_map(fdf, file_name))
+			return (1);
 	}
+	else
+		quit(fdf, 1);
 	return (0);
 }
+
+// 1 -> desalocar mapas de entrada

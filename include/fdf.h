@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 17:00:06 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:36:48 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ typedef struct	s_colors
 
 typedef	struct	s_map
 {
-	int	**map;
-	int	rows;
-	int	columns;
-	int	interval_row;
-	int	interval_col;
-	int	offset_x;
-	int	offset_y;
+	int			**map;
+	char		**map_char;
+	int			rows;
+	int			columns;
+	int			interval_row;
+	int			interval_col;
+	int			offset_x;
+	int			offset_y;
 	t_colors	colors;
 }	t_map;
 
@@ -119,5 +120,5 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 int		*ft_split_int(char *str, char c);
 int		ft_count_words_str(char const *s, char sep);
 
-void	quit(t_fdf fdf);
+void	quit(t_fdf *fdf, int error);
 #endif
