@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/21 14:36:22 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:42:36 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,17 @@ int	read_map(t_fdf *fdf, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
 	{
+		// Pegar mapa em char ** e verificar error
+		// contar coluna junto.
 		a_row = -1;
 		while (++a_row < fdf->map.rows)
 		{
 			fdf->map.map_char[a_row] = get_next_line(fd);
 			fdf->map.map[a_row] = ft_split_int(fdf->map.map_char[a_row], ' ');
 		}
+		// transformar char** em int**
+		// Pegar cor depois da virgula
+		// Dar free no mapa de char
 		if (!count_columns(fdf))
 			return (0);
 		calculate(fdf);
