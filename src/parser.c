@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/22 17:32:20 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:45:36 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ void	calculate(t_fdf *fdf)
 	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
 }
 
-static void	count_rows(t_fdf *fdf, char *file_name)
-{
-	int	fd;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
-	{
-		while (get_next_line(fd))
-			fdf->map.rows++;
-		close(fd);
-	}
-}
-
 /**
  * Transformar o char** em int**
  * capturar a cor.
@@ -40,7 +27,7 @@ static void	count_rows(t_fdf *fdf, char *file_name)
  */
 void	turn_map_int(t_fdf *fdf)
 {
-
+	(void)fdf;
 }
 
 static	int	count_columns(t_fdf *fdf)
@@ -71,16 +58,26 @@ static	int	count_columns(t_fdf *fdf)
  * Conferir se tem alguma linha vazia
  * 
  */
-void	get_char_map(t_fdf *fdf, int fd)
+int	get_char_map(t_fdf *fdf, int fd)
 {
+	int	a_row;
+
 	a_row = -1;
 	while (++a_row < fdf->map.rows)
 	{
 		fdf->map.map_char[a_row] = get_next_line(fd);
-		if (fdf->map.map_char)
-		
+		if (fdf->map.map_char[0] == NULL)
+		{
+			quit(fdf, 3);
+			return (0);
+		}
+		else if (fdf->map.map_char[a_row] == NULL)
+		{
+			quit(fdf, 4);
+			return (0);
+		}
 	}
-
+	return (1);
 }
 
 /**
@@ -93,23 +90,35 @@ void	get_char_map(t_fdf *fdf, int fd)
 int	read_map(t_fdf *fdf, char *file_name)
 {
 	int	fd;
-	int	a_row;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
 	{
 		if (get_char_map(fdf, fd))
 		{
-			count_columns(fdf, fd);
-			turn_map_int(fdf);
+			count_columns(fdf);
+			//turn_map_int(fdf);
 			calculate(fdf);
 		}
 		else
-			quit();
+			return (0);
 		close(fd);
 		return (1);
 	}
 	return (0);
+}
+
+static void	count_rows(t_fdf *fdf, char *file_name)
+{
+	int	fd;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd != -1)
+	{
+		while (get_next_line(fd))
+			fdf->map.rows++;
+		close(fd);
+	}
 }
 
 /**

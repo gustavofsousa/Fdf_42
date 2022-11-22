@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/21 14:36:48 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:49:55 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../libft/libft.h"
 # include "./get_next_line.h"
 # include "../miniLibX/mlx.h"
+# include "../ft_printf/ft_printf.h"
 #include <fcntl.h>
 #include <math.h>
 

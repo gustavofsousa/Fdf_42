@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 16:53:06 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:43:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int argc, char **argv)
 		if (parse(&fdf, argv[1]))
 			if (display_mlx_win(&fdf))
 				return (1);
-		quit(fdf);
 	}
 	ft_putendl_fd("Missing arguments or invalid map", 1);
 	return (0);
