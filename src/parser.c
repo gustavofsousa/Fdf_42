@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/21 14:42:36 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:32:20 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ static void	count_rows(t_fdf *fdf, char *file_name)
 	}
 }
 
+/**
+ * Transformar o char** em int**
+ * capturar a cor.
+ * Dar free no mapa char.
+ */
+void	turn_map_int(t_fdf *fdf)
+{
+
+}
+
 static	int	count_columns(t_fdf *fdf)
 {
 	int	a_row;
@@ -55,6 +65,25 @@ static	int	count_columns(t_fdf *fdf)
 }
 
 /**
+ * Usar gnl para pegar o mapa
+ * Conferir erro de numero de coluna
+ * Conferir se não achou dado
+ * Conferir se tem alguma linha vazia
+ * 
+ */
+void	get_char_map(t_fdf *fdf, int fd)
+{
+	a_row = -1;
+	while (++a_row < fdf->map.rows)
+	{
+		fdf->map.map_char[a_row] = get_next_line(fd);
+		if (fdf->map.map_char)
+		
+	}
+
+}
+
+/**
  * Extrai cada linha do arquivo
  * Conta qtd_colunas
  * insere na struct mapa
@@ -69,20 +98,15 @@ int	read_map(t_fdf *fdf, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
 	{
-		// Pegar mapa em char ** e verificar error
-		// contar coluna junto.
-		a_row = -1;
-		while (++a_row < fdf->map.rows)
+		if (get_char_map(fdf, fd))
 		{
-			fdf->map.map_char[a_row] = get_next_line(fd);
-			fdf->map.map[a_row] = ft_split_int(fdf->map.map_char[a_row], ' ');
+			count_columns(fdf, fd);
+			turn_map_int(fdf);
+			calculate(fdf);
 		}
-		// transformar char** em int**
-		// Pegar cor depois da virgula
-		// Dar free no mapa de char
-		if (!count_columns(fdf))
-			return (0);
-		calculate(fdf);
+		else
+			quit();
+		close(fd);
 		return (1);
 	}
 	return (0);
@@ -104,10 +128,13 @@ int	parse(t_fdf *fdf, char *file_name)
 	{
 		if (read_map(fdf, file_name))
 			return (1);
+		else
+			quit(fdf, 2);
 	}
 	else
 		quit(fdf, 1);
 	return (0);
 }
 
-// 1 -> desalocar mapas de entrada
+// 1 -> Proteção do maloc dos mapas. desalocar mapas de entrada.
+// 2 -> "couldn't find a file"
