@@ -1,18 +1,18 @@
 
 MAKEFLAGS	= --silent
-NAME = fdf
+NAME := fdf
 
 # compiler
-CC = cc
-CFLAGS = -Wextra -Wall -Werror -g
+CC := cc
+CFLAGS := -Wextra -Wall -Werror -g
 
 # directories
-SRCDIR	=	 ./src/
-INCDIR	=	 ./include/
-OBJDIR	=	 ./obj/
+SRCDIR	:=	 ./src/
+INCDIR	:=	 ./include/
+OBJDIR	:=	 ./obj/
 
 # source / objects files
-SRC =		main.c \
+SRC :=		main.c \
 	  		parser.c \
 	 	 	draw.c \
 			mlx.c\
@@ -23,24 +23,23 @@ SRC =		main.c \
 			get_next_line.c \
 			get_next_line_utils.c quit.c
 
-OBJ += $(addprefix $(OBJDIR), $(SRC:.c=.o))
+OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
 ############## mlx library ##############
-MLX		= ./miniLibX/
-MLX_LIB	= $(addprefix $(MLX), mlx.a)
-MLX_INC	= -I ./miniLibX
-MLX_LNK	= -L ./miniLibX -l mlx -framework OpenGL -framework AppKit
+MLX		:= ./miniLibX/
+MLX_LIB	:= $(addprefix $(MLX), mlx.a)
+MLX_INC	:= -I ./miniLibX
+MLX_LNK	:= -L ./miniLibX -l mlx -framework OpenGL -framework AppKit
 
 ############### ft library ###############
-FT		= ./libft/
-FT_LIB	= $(FT)/libft.a
-FT_INC	= -I ./libft
-FT_LNK	= -L ./libft -l ft
+FT		:= ./libft/
+FT_LIB	:= $(FT)/libft.a
+FT_INC	:= -I ./libft
 
 ############### ft_printf ###############
-FT_PTF	=	./ft_printf/
-FT_PTF_LIB	=	$(addprefix $(FT_PTF), libftprintf.a)
-FT_PTF_INC	=	-I $(FT_PTF)
+FT_PTF	:=	./ft_printf/
+FT_PTF_LIB	:=	$(addprefix $(FT_PTF), libftprintf.a)
+FT_PTF_INC	:=	-I ./ft_printf
 
 all: obj $(FT_LIB) $(FT_PTF_LIB) $(MLX_LIB) $(NAME)
 
@@ -48,7 +47,7 @@ obj:
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I ft_printf/*.o -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) $(FT_PTF_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 	make -C $(FT)
@@ -60,7 +59,7 @@ $(MLX_LIB):
 	make -C $(MLX)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) $(FT_PTF_INC) -lm -o $(NAME)
+	$(CC) $(OBJ) $(MLX_LNK) $(FT_LIB) $(FT_PTF_LIB) -o $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)
