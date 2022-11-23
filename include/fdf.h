@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 16:16:53 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/23 18:55:25 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ typedef	struct	s_map
 	int			interval_col;
 	int			offset_x;
 	int			offset_y;
-	t_colors	colors;
+	//t_colors	colors;
+	int		**color;
+	int		flag_color;
 }	t_map;
 
 typedef struct s_fdf
@@ -120,6 +122,7 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 
 int		count_columns(t_fdf *fdf);
 void	count_rows(t_fdf *fdf, char *file_name);
+int		turn_map_int(t_fdf *fdf);
 
 void	quit(t_fdf *fdf, int error);
 #endif

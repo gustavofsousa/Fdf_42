@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 18:24:57 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/23 19:07:10 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,39 @@ void	calculate(t_fdf *fdf)
 	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
 	fdf->map.offset_x = fdf->mlx.win_size_x / 3;
 	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
+}
+
+/**
+ *	ir até o fim da virgula
+ *	Receber com atoHEX
+ */
+void	extract(t_fdf *fdf, int a_row)
+{
+
+
+}
+
+// Verificar na primeira linha se tem ','
+// Capturar cada valor depois da linha e guardar na struct.
+void	get_color(t_fdf *fdf)
+{
+	int	a_row;
+
+
+	if (ft_strchr(fdf->map.map_char[0], ','))
+	{
+		fdf->map.color = malloc(fdf->map.rows * sizeof(int *));
+		if (fdf->map.color)
+		{
+			a_row = -1;
+			while (++a_row < fdf->map.rows)
+			{
+					fdf->map.color[a_row] = malloc(fdf->map.rows * sizeof(int));
+					if (fdf->map.color[a_row])
+						extract(fdf, a_row);
+			}
+		}
+	}
 }
 
 /**
@@ -61,7 +94,7 @@ int	read_map(t_fdf *fdf, char *file_name)
 			{
 				if (turn_map_int(fdf))
 				{
-					// get_color();
+					get_color(fdf);
 					calculate(fdf);
 				}
 			}
