@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 16:16:08 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/23 18:24:57 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ void	calculate(t_fdf *fdf)
 	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
 	fdf->map.offset_x = fdf->mlx.win_size_x / 3;
 	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
-}
-
-/**
- * Transformar o char** em int**
- * capturar a cor.
- * Dar free no mapa char.
- */
-void	turn_map_int(t_fdf *fdf)
-{
-	(void)fdf;
 }
 
 /**
@@ -69,8 +59,11 @@ int	read_map(t_fdf *fdf, char *file_name)
 		{
 			if (count_columns(fdf))
 			{
-				//turn_map_int(fdf);
-				calculate(fdf);
+				if (turn_map_int(fdf))
+				{
+					// get_color();
+					calculate(fdf);
+				}
 			}
 		}
 		else

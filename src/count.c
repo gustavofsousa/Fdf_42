@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 16:57:20 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/23 18:23:32 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,49 @@ int	count_columns(t_fdf *fdf)
 	return (1);
 }
 
+/**
+ * Divido o meu map_char com split.
+ * Faço a transposta para o map_int.
+ * Dou free na split.
+ */
+void	transpose(t_fdf *fdf, int a_row)
+{
+	int	i;
+	char	**str;
+
+	i = fdf->map.columns;
+	while (i--)
+	{
+		str = ft_split(fdf->map.map_char[a_row], ' ');
+		fdf->map.map[a_row][i] = ft_atoi(str[i]);
+		free(str[i]);
+	}
+	free(str);
+}
+
+/**
+ * Devo dividir as minhas linhas
+ * Colocar cada linha como numeros do meuint
+ * dar free no split.
+ */
+int	turn_map_int(t_fdf *fdf)
+{
+	int	a_row;
+
+	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
+	if (fdf->map.map)
+	{
+		a_row= -1;
+		while (++a_row < fdf->map.rows)
+		{
+			fdf->map.map[a_row] = malloc(fdf->map.columns * sizeof(int));
+			if (fdf->map.map[a_row])
+				transpose(fdf, a_row);
+			else
+				return (0);
+		}
+	}
+	else
+		return (0);
+	return (1);
+}
