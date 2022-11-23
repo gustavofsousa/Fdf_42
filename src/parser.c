@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/22 17:45:36 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:16:08 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,9 @@ void	turn_map_int(t_fdf *fdf)
 	(void)fdf;
 }
 
-static	int	count_columns(t_fdf *fdf)
-{
-	int	a_row;
-	int	count;
-
-	a_row = 0;
-	count = ft_count_words_str(fdf->map.map_char[a_row], ' ');
-	while (fdf->map.map_char[a_row])
-	{
-		if (count != ft_count_words_str(fdf->map.map_char[a_row++], ' '))
-		{
-			ft_putendl_fd("Invalid map", 1);
-			return (0);
-		}
-		free(fdf->map.map_char[a_row]);
-	}
-	free(fdf->map.map_char);
-	fdf->map.columns = count;
-	return (1);
-}
-
 /**
  * Usar gnl para pegar o mapa
- * Conferir erro de numero de coluna
  * Conferir se não achou dado
- * Conferir se tem alguma linha vazia
- * 
  */
 int	get_char_map(t_fdf *fdf, int fd)
 {
@@ -69,11 +45,6 @@ int	get_char_map(t_fdf *fdf, int fd)
 		if (fdf->map.map_char[0] == NULL)
 		{
 			quit(fdf, 3);
-			return (0);
-		}
-		else if (fdf->map.map_char[a_row] == NULL)
-		{
-			quit(fdf, 4);
 			return (0);
 		}
 	}
@@ -96,9 +67,11 @@ int	read_map(t_fdf *fdf, char *file_name)
 	{
 		if (get_char_map(fdf, fd))
 		{
-			count_columns(fdf);
-			//turn_map_int(fdf);
-			calculate(fdf);
+			if (count_columns(fdf))
+			{
+				//turn_map_int(fdf);
+				calculate(fdf);
+			}
 		}
 		else
 			return (0);
@@ -106,19 +79,6 @@ int	read_map(t_fdf *fdf, char *file_name)
 		return (1);
 	}
 	return (0);
-}
-
-static void	count_rows(t_fdf *fdf, char *file_name)
-{
-	int	fd;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
-	{
-		while (get_next_line(fd))
-			fdf->map.rows++;
-		close(fd);
-	}
 }
 
 /**

@@ -13,15 +13,12 @@ OBJDIR	:=	 ./obj/
 
 # source / objects files
 SRC :=		main.c \
-	  		parser.c \
-	 	 	draw.c \
+	  		parser.c count.c \
 			mlx.c\
-			draw_steep.c \
+	 	 	draw.c draw_steep.c \
 	 	 	isometric.c \
-	  		ft_split_int.c \
-			ft_count_words_str.c \
-			get_next_line.c \
-			get_next_line_utils.c quit.c
+			get_next_line.c get_next_line_utils.c \
+			quit.c
 
 OBJ := $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
