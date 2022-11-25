@@ -6,11 +6,11 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 19:07:10 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/25 13:28:44 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 void	calculate(t_fdf *fdf)
 {
@@ -20,13 +20,42 @@ void	calculate(t_fdf *fdf)
 	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
 }
 
+int	ft_atohex(char *str, int len)
+{
+	int	nbr;
+	int	i;
+	char	*base;
+	int		pre;
+
+	i = 0;
+	if (str[i + 1] == 'X')
+		i += 2;
+	base = "0123456789ABCDEF";
+	while (len--)
+	{
+		pre = str[i++] - '0';
+		nbr = nbr * 10 + base[pre % 16];
+	}
+	return (nbr);
+}
+
 /**
  *	ir até o fim da virgula
  *	Receber com atoHEX
  */
 void	extract(t_fdf *fdf, int a_row)
 {
+	int	i;
 
+	i = 0;
+	while (fdf->map.map_char[a_row][i])
+	{
+		if (fdf->map.map_char[a_row][i] == ',')
+		{
+			a_row = 4;
+			// Como jogar 0x para inteiro?
+		}
+	}
 
 }
 
