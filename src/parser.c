@@ -20,6 +20,32 @@ void	calculate(t_fdf *fdf)
 	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
 }
 
+int    ft_atohex(char *str)
+{
+	static int    hex_values[6] = {10, 11, 12, 13, 14, 15};
+	int            nbr;
+	int            i;
+
+	if (!str)
+		return (0);
+	nbr = 0;
+	i = 0;
+	if (ft_strncmp(str, ",0x", 3) == 0 || ft_strncmp(str, ",0X", 3) == 0)
+		i += 3;
+	while (str[i] != '\0')
+	{
+		if (ft_isdigit(str[i]))
+			nbr = nbr * 16 + (str[i] - 48);
+		else if (str[i] >= 'a' && str[i] <= 'f')
+			nbr = nbr * 16 + hex_values[(str[i] - 97)];
+		else if (str[i] >= 'A' && str[i] <= 'F')
+			nbr = nbr * 16 + hex_values[(str[i] - 65)];
+		i++;
+	}
+	return (nbr);
+}
+
+/*
 int	ft_atohex(char *str, int len)
 {
 	int	nbr;
@@ -38,6 +64,7 @@ int	ft_atohex(char *str, int len)
 	}
 	return (nbr);
 }
+*/
 
 /**
  *	ir até o fim da virgula
@@ -52,8 +79,8 @@ void	extract(t_fdf *fdf, int a_row)
 	{
 		if (fdf->map.map_char[a_row][i] == ',')
 		{
-			a_row = 4;
-			// Como jogar 0x para inteiro?
+			fdf->map.color[a_row][i] = ft_atohex(fdf->map.map_char[a_row][i]);
+			i++;
 		}
 	}
 
