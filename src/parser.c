@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/25 13:28:44 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:38:31 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int    ft_atohex(char *str)
 	i = 0;
 	if (ft_strncmp(str, ",0x", 3) == 0 || ft_strncmp(str, ",0X", 3) == 0)
 		i += 3;
-	while (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != ' ')
 	{
 		if (ft_isdigit(str[i]))
 			nbr = nbr * 16 + (str[i] - 48);
@@ -73,15 +73,18 @@ int	ft_atohex(char *str, int len)
 void	extract(t_fdf *fdf, int a_row)
 {
 	int	i;
+	int	c;
 
 	i = 0;
+	c = 0;
 	while (fdf->map.map_char[a_row][i])
 	{
 		if (fdf->map.map_char[a_row][i] == ',')
 		{
-			fdf->map.color[a_row][i] = ft_atohex(fdf->map.map_char[a_row][i]);
-			i++;
+			fdf->map.color[a_row][c] = ft_atohex((fdf->map).map_char[a_row] + i);
+			c++;
 		}
+		i++;
 	}
 
 }
@@ -95,6 +98,7 @@ void	get_color(t_fdf *fdf)
 
 	if (ft_strchr(fdf->map.map_char[0], ','))
 	{
+		fdf->map.color_flag = 1;
 		fdf->map.color = malloc(fdf->map.rows * sizeof(int *));
 		if (fdf->map.color)
 		{
@@ -121,6 +125,7 @@ int	get_char_map(t_fdf *fdf, int fd)
 	while (++a_row < fdf->map.rows)
 	{
 		fdf->map.map_char[a_row] = get_next_line(fd);
+		// Caso não tiver nada no arquivo.
 		if (fdf->map.map_char[0] == NULL)
 		{
 			quit(fdf, 3);
@@ -150,6 +155,7 @@ int	read_map(t_fdf *fdf, char *file_name)
 			{
 				if (turn_map_int(fdf))
 				{
+					ft_printf("Hello\n");
 					get_color(fdf);
 					calculate(fdf);
 				}

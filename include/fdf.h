@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 18:55:25 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:38:06 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef	struct	s_map
 	int			offset_y;
 	//t_colors	colors;
 	int		**color;
-	int		flag_color;
+	int		color_flag;
 }	t_map;
 
 typedef struct s_fdf

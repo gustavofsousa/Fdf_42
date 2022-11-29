@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/23 18:23:32 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/29 11:54:31 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	turn_map_int(t_fdf *fdf)
 	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
 	if (fdf->map.map)
 	{
-		a_row= -1;
+		a_row = -1;
 		while (++a_row < fdf->map.rows)
 		{
 			fdf->map.map[a_row] = malloc(fdf->map.columns * sizeof(int));
