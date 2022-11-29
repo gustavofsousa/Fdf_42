@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/29 11:54:31 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:57:11 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,15 @@ void	transpose(t_fdf *fdf, int a_row)
 	int	i;
 	char	**str;
 
-	i = fdf->map.columns;
-	while (i--)
+	str = ft_split(fdf->map.map_char[a_row], ' ');
+	i = 0;
+	while (i < fdf->map.columns)
 	{
-		str = ft_split(fdf->map.map_char[a_row], ' ');
 		fdf->map.map[a_row][i] = ft_atoi(str[i]);
 		free(str[i]);
+		i++;
 	}
+	// free(str[i]);
 	free(str);
 }
 
