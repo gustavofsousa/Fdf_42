@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/29 14:57:11 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/11/29 17:34:57 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	count_rows(t_fdf *fdf, char *file_name)
 {
-	int	fd;
+	int		fd;
+	char	*str;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
 	{
-		while (get_next_line(fd))
+		str = get_next_line(fd);
+		while (str)
+		{
 			fdf->map.rows++;
+			free(str);
+			str = get_next_line(fd);
+		}
 		close(fd);
 	}
 }
@@ -83,7 +89,7 @@ void	transpose(t_fdf *fdf, int a_row)
 		free(str[i]);
 		i++;
 	}
-	// free(str[i]);
+	free(str[i]);
 	free(str);
 }
 
