@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count.c                                            :+:      :+:    :+:   */
+/*   parse_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 19:34:09 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:50:59 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,50 +63,33 @@ int	count_columns(t_fdf *fdf)
 }
 
 /**
- * Divido o meu map_char com split.
- * Faço a transposta para o map_int.
- * Dou free na split.
+ * Usar gnl para pegar o mapa
+ * Conferir se não achou dado
  */
-void	transpose(t_fdf *fdf, int a_row)
-{
-	int	i;
-	char	**str;
-
-	str = ft_split(fdf->map.map_char[a_row], ' ');
-	i = 0;
-	while (i < fdf->map.columns)
-	{
-		fdf->map.map[a_row][i] = ft_atoi(str[i]);
-		free(str[i]);
-		i++;
-	}
-	free(str[i]);
-	free(str);
-}
-
-/**
- * Devo dividir as minhas linhas
- * Colocar cada linha como numeros do meuint
- * dar free no split.
- */
-int	turn_map_int(t_fdf *fdf)
+int	get_char_map(t_fdf *fdf, int fd)
 {
 	int	a_row;
 
-	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
-	if (fdf->map.map)
+	a_row = -1;
+	while (++a_row < fdf->map.rows)
 	{
-		a_row = -1;
-		while (++a_row < fdf->map.rows)
+		fdf->map.map_char[a_row] = get_next_line(fd);
+		if (fdf->map.map_char[a_row])
 		{
-			fdf->map.map[a_row] = malloc(fdf->map.columns * sizeof(int));
-			if (fdf->map.map[a_row])
-				transpose(fdf, a_row);
-			else
+			if (fdf->map.map_char[0] == NULL)
+			{
+				ft_printf("No data found\n"); // Ou espaço.
 				return (0);
+			}
+			else if (fdf->map.map_char[a_row] == NULL) // Ou espaço.
+			{
+				ft_printf("Found wrong line lenght\n");
+				return (0);
+			}
 		}
+		else
+			return (0);
 	}
-	else
-		return (0);
 	return (1);
 }
+

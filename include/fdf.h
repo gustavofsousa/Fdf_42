@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 19:39:51 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:54:25 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,12 @@ typedef struct s_fdf
 int		parse(t_fdf *fdf, char *file_name);
 
 // Analise char
-int		count_columns(t_fdf *fdf);
 void	count_rows(t_fdf *fdf, int fd);
+int		get_char_map(t_fdf *fdf, int fd);
+int		count_columns(t_fdf *fdf);
 //Analise int
 int		turn_map_int(t_fdf *fdf);
+int		get_color(t_fdf *fdf);
 
 // MLX
 int		display_mlx_win(t_fdf *fdf);
