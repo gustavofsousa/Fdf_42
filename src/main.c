@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/29 14:37:46 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 18:56:50 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	setup(t_fdf *fdf)
 	fdf->mlx.win_size_x = 1200;
 	fdf->mlx.win_size_y = 800;
 	fdf->map.color = NULL;
+	fdf->map.map = NULL;
+	fdf->map.map_char = NULL;
 	fdf->map.color_flag = 0;
+
 }
 
 int	main(int argc, char **argv)
@@ -35,7 +38,7 @@ int	main(int argc, char **argv)
 	{
 		setup(&fdf);
 		if (parse(&fdf, argv[1]))
-			argc = 3;
+			quit(&fdf, 1);
 			//if (display_mlx_win(&fdf))
 				//return (1);
 	}

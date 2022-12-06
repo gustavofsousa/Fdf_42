@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/29 17:34:57 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 17:45:28 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ int	count_columns(t_fdf *fdf)
 	while (++a_row < fdf->map.rows)
 	{
 		if (count_words(fdf->map.map_char[a_row]) < n_col)
-		{
-			quit(fdf, 4);
 			return (0);
-		}
 	}
 	fdf->map.columns = n_col;
 	return (1);

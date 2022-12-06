@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/29 14:38:31 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:03:56 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	extract(t_fdf *fdf, int a_row)
 
 // Verificar na primeira linha se tem ','
 // Capturar cada valor depois da linha e guardar na struct.
-void	get_color(t_fdf *fdf)
+int	get_color(t_fdf *fdf)
 {
 	int	a_row;
 
@@ -108,9 +108,14 @@ void	get_color(t_fdf *fdf)
 					fdf->map.color[a_row] = malloc(fdf->map.rows * sizeof(int));
 					if (fdf->map.color[a_row])
 						extract(fdf, a_row);
+					else
+						return (0);
 			}
 		}
+		else
+			return (0);
 	}
+	return (1);
 }
 
 /**
@@ -125,12 +130,21 @@ int	get_char_map(t_fdf *fdf, int fd)
 	while (++a_row < fdf->map.rows)
 	{
 		fdf->map.map_char[a_row] = get_next_line(fd);
-		// Caso não tiver nada no arquivo.
-		if (fdf->map.map_char[0] == NULL)
+		if (fdf->map.map_char[a_row])
 		{
-			quit(fdf, 3);
-			return (0);
+			if (fdf->map.map_char[0] == NULL)
+			{
+				ft_printf("No data found\n"); // Ou espaço.
+				return (0);
+			}
+			else if (fdf->map.map_char[a_row] == NULL) // Ou espaço.
+			{
+				ft_printf("Found wrong line lenght\n");
+				return (0);
+			}
 		}
+		else
+			return (0);
 	}
 	return (1);
 }
@@ -155,17 +169,25 @@ int	read_map(t_fdf *fdf, char *file_name)
 			{
 				if (turn_map_int(fdf))
 				{
-					ft_printf("Hello\n");
-					get_color(fdf);
-					calculate(fdf);
+					if (get_color(fdf))
+					{
+						calculate(fdf);
+						close(fd);
+						return (1);
+					}
+					else
+						quit(fdf, 8); // Erro malloc color
 				}
+				else
+					quit(fdf, 7); //Erro malloc int_map
 			}
+			else
+				quit(fdf, 4); //Wrong line lenght error
 		}
 		else
-			return (0);
-		close(fd);
-		return (1);
+			quit(fdf, 3); // No data found. Wrong line lenght. Erro malloc char_map.
 	}
+	close(fd);
 	return (0);
 }
 
@@ -180,16 +202,13 @@ int	parse(t_fdf *fdf, char *file_name)
 {
 	count_rows(fdf, file_name);
 	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
-	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
-	if (fdf->map.map_char && fdf->map.map)
+	if (fdf->map.map_char)
 	{
 		if (read_map(fdf, file_name))
 			return (1);
-		else
-			quit(fdf, 2);
 	}
 	else
-		quit(fdf, 1);
+		quit(fdf, 1); // Error malloc map_char incompleto
 	return (0);
 }
 

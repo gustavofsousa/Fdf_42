@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 15:45:51 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 18:53:32 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,21 @@ void	quit_6(t_fdf *fdf)
 void	quit_5(t_fdf *fdf)
 {
 	ft_printf("found wrong line length\n");
+	// Limpar o char_map incompleto.
 	(void)fdf;
 }
 
 void	quit_4(t_fdf *fdf)
 {
 	ft_printf("Found wrong line length error\n");
+	// Limpar o char_map completo
 	quit_1(fdf);
 }
 
 void	quit_3(t_fdf *fdf)
 {
 	ft_printf("No data found\n");
+	// Limpar char_map incompleto.
 	quit_1(fdf);
 }
 
@@ -67,6 +70,14 @@ void	quit_2(t_fdf *fdf)
 {
 	ft_printf("Couldn't find file");
 	(void)fdf;
+}
+
+void	quit_7(t_fdf *fdf)
+{
+	ft_printf("error malloc int");
+	(void)fdf;
+	// Limpar int_map incompleto
+	// Limpar char_map completo.
 }
 
 
