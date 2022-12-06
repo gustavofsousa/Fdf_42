@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/22 19:07:58 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 15:45:51 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void	quit_1(t_fdf *fdf)
 		while (fdf->map.map_char[++i])
 			free(fdf->map.map_char[i]);
 		free(fdf->map.map_char);
+	}
+	i = -1;
+	if (fdf->map.color)
+	{
+		while (fdf->map.color[++i])
+			free(fdf->map.color[i]);
+		free(fdf->map.color);
 	}
 }
 
