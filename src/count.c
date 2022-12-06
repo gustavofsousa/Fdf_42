@@ -6,28 +6,22 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 17:45:28 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:34:09 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	count_rows(t_fdf *fdf, char *file_name)
+void	count_rows(t_fdf *fdf, int fd)
 {
-	int		fd;
 	char	*str;
 
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
+	str = get_next_line(fd);
+	while (str)
 	{
+		fdf->map.rows++;
+		free(str);
 		str = get_next_line(fd);
-		while (str)
-		{
-			fdf->map.rows++;
-			free(str);
-			str = get_next_line(fd);
-		}
-		close(fd);
 	}
 }
 

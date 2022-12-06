@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 19:03:56 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:38:37 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,31 @@ int	get_color(t_fdf *fdf)
 	return (1);
 }
 
+
+/**
+ * Extrai cada linha do arquivo
+ * Conta qtd_colunas
+ * insere na struct mapa
+ * está também pegando cor
+ * e splitando
+ */
+int	parse_map_int(t_fdf *fdf)
+{
+	if (turn_map_int(fdf))
+	{
+		if (get_color(fdf))
+		{
+			calculate(fdf);
+			return (1);
+		}
+		else
+			quit(fdf, 8); // Erro malloc color
+	}
+	else
+		quit(fdf, 7); //Erro malloc int_map
+	return (0);
+}
+
 /**
  * Usar gnl para pegar o mapa
  * Conferir se não achou dado
@@ -149,45 +174,25 @@ int	get_char_map(t_fdf *fdf, int fd)
 	return (1);
 }
 
-/**
- * Extrai cada linha do arquivo
- * Conta qtd_colunas
- * insere na struct mapa
- * está também pegando cor
- * e splitando
- */
-int	read_map(t_fdf *fdf, char *file_name)
+int	parse_map_char(t_fdf *fdf, int fd)
 {
-	int	fd;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
+	count_rows(fdf, fd);
+	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
+	if (fdf->map.map_char)
 	{
 		if (get_char_map(fdf, fd))
 		{
+			close(fd);
 			if (count_columns(fdf))
-			{
-				if (turn_map_int(fdf))
-				{
-					if (get_color(fdf))
-					{
-						calculate(fdf);
-						close(fd);
-						return (1);
-					}
-					else
-						quit(fdf, 8); // Erro malloc color
-				}
-				else
-					quit(fdf, 7); //Erro malloc int_map
-			}
+				return (1);
 			else
 				quit(fdf, 4); //Wrong line lenght error
 		}
 		else
 			quit(fdf, 3); // No data found. Wrong line lenght. Erro malloc char_map.
 	}
-	close(fd);
+	else
+		quit(fdf, 1); // Error malloc map_char incompleto
 	return (0);
 }
 
@@ -200,17 +205,20 @@ int	read_map(t_fdf *fdf, char *file_name)
  */
 int	parse(t_fdf *fdf, char *file_name)
 {
-	count_rows(fdf, file_name);
-	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
-	if (fdf->map.map_char)
+	int	fd;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd != -1)
 	{
-		if (read_map(fdf, file_name))
-			return (1);
+		if (parse_map_char(fdf, fd))
+		{
+			if (parse_map_int(fdf))
+			{
+				return (1);
+			}
+		}
 	}
 	else
-		quit(fdf, 1); // Error malloc map_char incompleto
+		quit(fdf, 2); // Couldn't find file. // Nada de malloc
 	return (0);
 }
-
-// 1 -> Proteção do maloc dos mapas. desalocar mapas de entrada.
-// 2 -> "couldn't find a file"

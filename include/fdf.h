@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 17:55:52 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/06 19:39:51 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,21 @@ typedef struct s_fdf
 	t_pixel	p;
 }	t_fdf;
 
-int		parse(t_fdf *fdf, char *filne_name);
+//Analise
+int		parse(t_fdf *fdf, char *file_name);
+
+// Analise char
+int		count_columns(t_fdf *fdf);
+void	count_rows(t_fdf *fdf, int fd);
+//Analise int
+int		turn_map_int(t_fdf *fdf);
+
+// MLX
 int		display_mlx_win(t_fdf *fdf);
 void	draw_win(t_fdf *fdf);
 void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
-
-int		count_columns(t_fdf *fdf);
-void	count_rows(t_fdf *fdf, char *file_name);
-int		turn_map_int(t_fdf *fdf);
 
 void	quit(t_fdf *fdf, int error);
 #endif
