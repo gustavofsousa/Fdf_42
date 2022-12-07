@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 15:59:16 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:27:58 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ int	count_columns(t_fdf *fdf)
 	return (1);
 }
 
+int	is_valid_row(t_fdf *fdf, int a_row)
+{
+	int	i;
+
+	i = 0;
+	while (fdf->map.map_char[a_row][i])
+	{
+		if (ft_isdigit(fdf->map.map_char[a_row][i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /**
  * Usar gnl para pegar o mapa
  * Conferir se não achou dado
@@ -77,12 +91,12 @@ int	get_char_map(t_fdf *fdf, int fd)
 	while (++a_row < fdf->map.rows)
 	{
 		fdf->map.map_char[a_row] = get_next_line(fd);
-		if (fdf->map.map_char[0] == NULL)
+		if (fdf->map.map_char[a_row] == NULL || !is_valid_row(fdf, 0))
 		{
-			ft_printf("No data found\n"); // Ou espaço.
+			ft_printf("No data found\n");
 			return (0);
 		}
-		else if (fdf->map.map_char[a_row] == NULL) // Ou espaço.
+		else if (!is_valid_row(fdf, a_row))
 		{
 			ft_printf("Found wrong line lenght\n");
 			return (0);
