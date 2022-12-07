@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 16:02:42 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:46:55 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	quit_6(t_fdf *fdf)
 
 void	quit_5(t_fdf *fdf)
 {
-	ft_printf("found wrong line length\n");
+	ft_printf("found wrong line length. Exiting.\n");
 	// Limpar o char_map incompleto.
 	(void)fdf;
 }
@@ -63,7 +63,6 @@ void	quit_4(t_fdf *fdf)
 
 void	quit_3(t_fdf *fdf)
 {
-	ft_printf("No data found\n");
 	// Limpar char_map incompleto.
 	quit_1(fdf);
 }

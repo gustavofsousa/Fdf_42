@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 15:59:02 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:52:46 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ int	parse(t_fdf *fdf, char *file_name)
 		}
 	}
 	else
+	{
+		ft_printf("No file %s\n", file_name);
 		quit(fdf, 2); // Couldn't find file. // Nada de malloc
+	}
 	return (0);
 }

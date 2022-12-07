@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 17:27:58 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:48:07 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ int	get_char_map(t_fdf *fdf, int fd)
 		fdf->map.map_char[a_row] = get_next_line(fd);
 		if (fdf->map.map_char[a_row] == NULL || !is_valid_row(fdf, 0))
 		{
-			ft_printf("No data found\n");
+			ft_printf("No data found.\n");
 			return (0);
 		}
 		else if (!is_valid_row(fdf, a_row))
 		{
-			ft_printf("Found wrong line lenght\n");
+			ft_printf("Found wrong line lenght. Exiting.\n");
 			return (0);
 		}
 	}

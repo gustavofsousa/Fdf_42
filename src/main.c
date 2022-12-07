@@ -6,14 +6,18 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 18:56:50 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:59:15 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	setup(t_fdf *fdf)
+void	setup(t_fdf *fdf, int argc)
 {
+	if (argc == 4)
+	{
+		argc = 2;
+	}
 	fdf->map.rows = 0;
 	fdf->map.columns = 0;
 	fdf->map.interval_row = 0;
@@ -34,15 +38,15 @@ int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 
-	if (argc == 2)
+	if (argc == 2 || argc == 4)
 	{
-		setup(&fdf);
+		setup(&fdf, argc);
 		if (parse(&fdf, argv[1]))
 			quit(&fdf, 1);
 			//if (display_mlx_win(&fdf))
 				//return (1);
 	}
-	ft_printf("%d\t%d\t%d\n", fdf.map.columns, fdf.map.rows, fdf.map.color[0][0]);
-	ft_putendl_fd("Missing arguments or invalid map", 1);
+	else
+		ft_printf("Usage : %s <filename> [ case_size z_size ]\n", argv[0]);
 	return (0);
 }
