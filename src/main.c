@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 17:59:15 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 18:32:03 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void	setup(t_fdf *fdf, int argc)
 	fdf->map.interval_col = 0;
 	fdf->p.x = 0;
 	fdf->p.y = 0;
-	fdf->p.color = ORANGE;
 	fdf->mlx.win_size_x = 1200;
 	fdf->mlx.win_size_y = 800;
 	fdf->map.color = NULL;
 	fdf->map.map = NULL;
 	fdf->map.map_char = NULL;
 	fdf->map.color_flag = 0;
-
 }
 
 int	main(int argc, char **argv)
@@ -42,9 +40,8 @@ int	main(int argc, char **argv)
 	{
 		setup(&fdf, argc);
 		if (parse(&fdf, argv[1]))
-			quit(&fdf, 1);
-			//if (display_mlx_win(&fdf))
-				//return (1);
+			if (display_mlx_win(&fdf))
+				quit(&fdf, 1);
 	}
 	else
 		ft_printf("Usage : %s <filename> [ case_size z_size ]\n", argv[0]);

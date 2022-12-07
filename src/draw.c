@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 16:11:48 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 18:30:56 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,19 @@ static void	draw_the_l(t_fdf *fdf, int i, int j)
 
 void	draw_win(t_fdf *fdf)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < fdf->map.rows)
+	fdf->map.a_row = 0;
+	while (fdf->map.a_row < fdf->map.rows)
 	{
-		j = 0;
+		fdf->map.a_col = 0;
 		fdf->p.x = 0;
-		while (j < fdf->map.columns)
+		while (fdf->map.a_col < fdf->map.columns)
 		{
-			draw_the_l(fdf, i, j);
+			draw_the_l(fdf, fdf->map.a_row, fdf->map.a_col);
 			fdf->p.x += fdf->map.interval_col;
-			j++;
+			fdf->map.a_col++;
 		}
 		fdf->p.y += fdf->map.interval_row;
-		i++;
+		fdf->map.a_row++;
 	}
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img, 0, 0);
 }

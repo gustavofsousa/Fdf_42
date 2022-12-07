@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 17:26:43 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 19:06:01 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 	p = do_isometric(p_in);
 	pos = (p.y * fdf->mlx.line_bytes) + p.x;
 	pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
-	//if (fdf->map.color.flag == 1)
-		//fdf->mlx.buffer[pos] = fdf->map.colors.color[i][j];
-	//else
-	//{
-		if (p_in.z == 0)
-			fdf->mlx.buffer[pos] = WHITE;
+	if (pos < ((fdf->mlx.line_bytes * fdf->map.rows) + fdf->map.columns) - 1)
+	{
+		if (fdf->map.color_flag == 1)
+			fdf->mlx.buffer[pos] = fdf->map.color[fdf->map.a_row][fdf->map.a_col];
 		else
-			fdf->mlx.buffer[pos] = GREEN_3;
-	//}
+		{
+			if (p_in.z == 0)
+				fdf->mlx.buffer[pos] = WHITE;
+			else
+				fdf->mlx.buffer[pos] = GREEN_3;
+		}
+	}
 }

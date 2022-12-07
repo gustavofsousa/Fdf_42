@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 15:58:10 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 18:29:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,18 @@ typedef struct	s_pixel
 
 typedef	struct	s_map
 {
-	int			**map;
 	char		**map_char;
+	int			**map;
+	int			**color;
 	int			rows;
 	int			columns;
 	int			interval_row;
 	int			interval_col;
 	int			offset_x;
 	int			offset_y;
-	int		**color;
-	int		color_flag;
+	int			color_flag;
+	int			a_row;
+	int			a_col;
 }	t_map;
 
 typedef struct s_fdf
