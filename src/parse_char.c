@@ -6,16 +6,18 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 19:50:59 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:59:16 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	count_rows(t_fdf *fdf, int fd)
+void	count_rows(t_fdf *fdf, char *file_name)
 {
 	char	*str;
+	int		fd;
 
+	fd = open(file_name, O_RDONLY);
 	str = get_next_line(fd);
 	while (str)
 	{
@@ -23,6 +25,7 @@ void	count_rows(t_fdf *fdf, int fd)
 		free(str);
 		str = get_next_line(fd);
 	}
+	close (fd);
 }
 
 // Conta a quantidade de palavras na linha.
@@ -74,21 +77,16 @@ int	get_char_map(t_fdf *fdf, int fd)
 	while (++a_row < fdf->map.rows)
 	{
 		fdf->map.map_char[a_row] = get_next_line(fd);
-		if (fdf->map.map_char[a_row])
+		if (fdf->map.map_char[0] == NULL)
 		{
-			if (fdf->map.map_char[0] == NULL)
-			{
-				ft_printf("No data found\n"); // Ou espaço.
-				return (0);
-			}
-			else if (fdf->map.map_char[a_row] == NULL) // Ou espaço.
-			{
-				ft_printf("Found wrong line lenght\n");
-				return (0);
-			}
-		}
-		else
+			ft_printf("No data found\n"); // Ou espaço.
 			return (0);
+		}
+		else if (fdf->map.map_char[a_row] == NULL) // Ou espaço.
+		{
+			ft_printf("Found wrong line lenght\n");
+			return (0);
+		}
 	}
 	return (1);
 }

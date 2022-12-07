@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/06 19:50:57 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:59:02 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	parse_map_int(t_fdf *fdf)
 	if (turn_map_int(fdf))
 	{
 		if (get_color(fdf))
-		{
-			calculate(fdf);
 			return (1);
-		}
 		else
 			quit(fdf, 8); // Erro malloc color
 	}
@@ -44,9 +41,9 @@ int	parse_map_int(t_fdf *fdf)
 	return (0);
 }
 
-int	parse_map_char(t_fdf *fdf, int fd)
+int	parse_map_char(t_fdf *fdf, int fd, char *file_name)
 {
-	count_rows(fdf, fd);
+	count_rows(fdf, file_name);
 	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
 	if (fdf->map.map_char)
 	{
@@ -59,10 +56,16 @@ int	parse_map_char(t_fdf *fdf, int fd)
 				quit(fdf, 4); //Wrong line lenght error
 		}
 		else
+		{
+			close (fd);
 			quit(fdf, 3); // No data found. Wrong line lenght. Erro malloc char_map.
+		}
 	}
 	else
+	{
+		close (fd);
 		quit(fdf, 1); // Error malloc map_char incompleto
+	}
 	return (0);
 }
 
@@ -80,10 +83,11 @@ int	parse(t_fdf *fdf, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd != -1)
 	{
-		if (parse_map_char(fdf, fd))
+		if (parse_map_char(fdf, fd, file_name))
 		{
 			if (parse_map_int(fdf))
 			{
+				calculate(fdf);
 				return (1);
 			}
 		}
