@@ -6,18 +6,18 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 17:52:46 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/08 16:07:10 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
 void	calculate(t_fdf *fdf)
-{
-	fdf->map.interval_row = W_HEIGHT / fdf->map.rows;
-	fdf->map.interval_col = W_LENGHT / fdf->map.columns;
-	fdf->map.offset_x = fdf->mlx.win_size_x / 3;
-	fdf->map.offset_y = fdf->mlx.win_size_y / 4;
+{ // Inverti leinght height com o debaixo
+	fdf->map.interval_row = e_tiny_lenght / fdf->map.rows;
+	fdf->map.interval_col = e_tiny_height / fdf->map.columns;
+	fdf->map.offset_x = e_lenght / 3;
+	fdf->map.offset_y = e_height / 4;
 }
 
 /**

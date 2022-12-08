@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:39:55 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 16:01:07 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:58:02 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	display_mlx_win(t_fdf *fdf)
 	fdf->mlx.mlx = mlx_init();
 	if (fdf->mlx.mlx != NULL)
 	{
-		fdf->mlx.win = mlx_new_window(fdf->mlx.mlx, fdf->mlx.win_size_x,
-				fdf->mlx.win_size_y, "fdf");
+		fdf->mlx.win = mlx_new_window(fdf->mlx.mlx, e_lenght,
+				e_height, "fdf");
 		if (fdf->mlx.win != NULL)
 		{
-			fdf->mlx.img = mlx_new_image(fdf->mlx.mlx, fdf->mlx.win_size_x,
-					fdf->mlx.win_size_y);
+			fdf->mlx.img = mlx_new_image(fdf->mlx.mlx, e_lenght,
+					e_height);
 			if (fdf->mlx.img != NULL)
 			{
 				fdf->mlx.buffer = (int *)mlx_get_data_addr(fdf->mlx.img,

@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 18:29:12 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/08 15:59:39 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include "../ft_printf/ft_printf.h"
 #include <fcntl.h>
 #include <math.h>
-
-#define W_HEIGHT 400
-#define W_LENGHT 270
 
 #define LIGHT_BLUE	0XABCDEF
 #define GREEN_1		0X138D75
@@ -45,6 +42,14 @@
 #define GRAY_MID	0x868686
 #define GRAY_HIGH	0xC3C3C3
 
+enum e_size_img
+{
+	e_lenght = 1200,
+	e_height = 800,
+	e_tiny_lenght = 400,
+	e_tiny_height = 270
+};
+
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -54,8 +59,6 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		line_bytes;
 	int		endian;
-	int		win_size_x;
-	int		win_size_y;
 }	t_mlx;
 
 typedef struct	s_point
