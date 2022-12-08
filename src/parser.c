@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/08 16:07:10 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/08 20:06:19 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	calculate(t_fdf *fdf)
 { // Inverti leinght height com o debaixo
-	fdf->map.interval_row = e_tiny_lenght / fdf->map.rows;
-	fdf->map.interval_col = e_tiny_height / fdf->map.columns;
+	fdf->map.interval_row = e_tiny_height / fdf->map.rows;
+	fdf->map.interval_col = e_tiny_lenght / fdf->map.columns;
 	fdf->map.offset_x = e_lenght / 3;
 	fdf->map.offset_y = e_height / 4;
 }
