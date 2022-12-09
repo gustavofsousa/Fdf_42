@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 09:53:16 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:24:05 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	draw_line(t_fdf *fdf, t_point p1, t_point p2)
 {
 	if (p1.z != p2.z) // inclinado
 		draw_steep(fdf, p1, p2);
-	else if (p1.x == p2.x) // Na mesma linha
-		draw_straight(fdf, p1, 'x', fdf->map.interval_col);
 	else if (p1.y == p2.y) // Na mesma coluna
+		draw_straight(fdf, p1, 'x', fdf->map.interval_col);
+	else if (p1.x == p2.x) // Na mesma linha
 		draw_straight(fdf, p1, 'y', fdf->map.interval_row);
 }
 

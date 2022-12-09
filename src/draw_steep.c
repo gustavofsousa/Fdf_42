@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:29 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/08 20:47:35 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/09 10:18:53 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,17 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
 	define_increase(p1, p2, &stp);
 	if (stp.dx >= stp.dy && stp.dx >= stp.dz)
 	{
-		ft_printf("X -> %i\n", stp.dx);
+		//ft_printf("X -> %i\n", stp.dx);
 		advance_axis_x(fdf, stp, p1, p2);
 	}
 	else if (stp.dy >= stp.dx && stp.dy >= stp.dz)
 	{
-		ft_printf("Y -> %i\n", stp.dy);
+		//ft_printf("Y -> %i\n", stp.dy);
 		advance_axis_y(fdf, stp, p1, p2);
 	}
 	else
 	{
-		ft_printf("Z -> %i\n", stp.dz);
+		//ft_printf("Z -> %i\n", stp.dz);
 		advance_axis_z(fdf, stp, p1, p2);
 	}
 }
