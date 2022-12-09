@@ -13,7 +13,7 @@ OBJDIR	:=	 ./obj/
 
 # source / objects files
 SRC :=		main.c \
-	  		parser.c parse_char.c parse_int.c \
+	  		parser.c parser_char.c parser_int.c \
 			mlx.c\
 	 	 	draw.c draw_steep.c \
 	 	 	isometric.c \

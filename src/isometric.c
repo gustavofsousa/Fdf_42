@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 10:41:48 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/09 11:16:47 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 	pos = (p.y * fdf->mlx.line_bytes) + p.x;
 	// Somando um offset
 	pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
-
 	// Cortando as laterais
 	//if (pos < ((fdf->mlx.line_bytes * fdf->map.a_row + 1) - 1))
 	//{
