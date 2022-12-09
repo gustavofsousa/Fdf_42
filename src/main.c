@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 18:32:03 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:50:40 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	setup(t_fdf *fdf, int argc)
 	fdf->map.interval_col = 0;
 	fdf->p.x = 0;
 	fdf->p.y = 0;
-	fdf->mlx.win_size_x = 1200;
-	fdf->mlx.win_size_y = 800;
 	fdf->map.color = NULL;
 	fdf->map.map = NULL;
 	fdf->map.map_char = NULL;

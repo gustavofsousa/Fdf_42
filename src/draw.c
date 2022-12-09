@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:45:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/08 20:07:48 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:53:16 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,31 @@ static t_point	create_point(int x, int y, int z)
 	return (p);
 }
 
-static void	draw_horiz(t_fdf *fdf, t_point p1, t_point p2)
+static void	draw_straight(t_fdf *fdf, t_point p1, char a, int interval)
 {
-	int		c;
-	int		steep;
-
-	steep = p1.z != p2.z;
-	if (!steep)
+	while (interval--)
 	{
-		c = fdf->map.interval_col;
-		while (c--)
-		{
-			please_put_my_pixel(fdf, p1);
+		please_put_my_pixel(fdf, p1);
+		if (a == 'x')
 			p1.x++;
-		}
-	}
-	else
-		draw_steep(fdf, p1, p2);
-}
-
-static void	draw_vertic(t_fdf *fdf, t_point p1, t_point p2)
-{
-	int		c;
-	int		steep;
-
-	steep = p1.z != p2.z;
-	if (!steep)
-	{
-		c = fdf->map.interval_row;
-		while (c--)
-		{
-			please_put_my_pixel(fdf, p1);
+		else if (a == 'y')
 			p1.y++;
-		}
 	}
-	else
-		draw_steep(fdf, p1, p2);
 }
 
+static void	draw_line(t_fdf *fdf, t_point p1, t_point p2)
+{
+	if (p1.z != p2.z) // inclinado
+		draw_steep(fdf, p1, p2);
+	else if (p1.x == p2.x) // Na mesma linha
+		draw_straight(fdf, p1, 'x', fdf->map.interval_col);
+	else if (p1.y == p2.y) // Na mesma coluna
+		draw_straight(fdf, p1, 'y', fdf->map.interval_row);
+}
+
+/*
+ *	Desenho entre o ponto atual e o próximo, no x e y.
+ */
 static void	draw_the_l(t_fdf *fdf, int i, int j)
 {
 	t_point	p;
@@ -71,16 +58,19 @@ static void	draw_the_l(t_fdf *fdf, int i, int j)
 	{
 		px_next = create_point(fdf->p.x + fdf->map.interval_col,
 				fdf->p.y, fdf->map.map[i][j + 1]);
-		draw_horiz(fdf, p, px_next);
+		draw_line(fdf, p, px_next);
 	}
 	if (i < fdf->map.rows - 1)
 	{
 		py_next = create_point(fdf->p.x, fdf->p.y + fdf->map.interval_row,
 				fdf->map.map[i + 1][j]);
-		draw_vertic(fdf, p, py_next);
+		draw_line(fdf, p, py_next);
 	}
 }
 
+/**
+ *	Ando em cada pixel da imagem para desenhar
+ */
 void	draw_win(t_fdf *fdf)
 {
 	fdf->map.a_row = 0;
