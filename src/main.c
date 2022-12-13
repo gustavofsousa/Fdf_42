@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 14:30:29 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:19:19 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ int	main(int argc, char **argv)
 	{
 		setup(&fdf, argc, argv);
 		if (parse(&fdf, argv[1]))
+		{
 			if (display_mlx_win(&fdf))
 				quit(&fdf, 1);
+		}
+		else
+			quit(&fdf, 1);
 	}
 	else
 		ft_printf("Usage : %s <filename> [ case_size z_size ]\n", argv[0]);

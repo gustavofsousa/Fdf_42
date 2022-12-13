@@ -6,18 +6,19 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:08:20 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:19:22 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	calculate(t_fdf *fdf)
+int	calculate(t_fdf *fdf)
 {
 	fdf->map.interval_row = e_tiny_height / fdf->map.rows;
 	fdf->map.interval_col = e_tiny_lenght / fdf->map.columns;
 	fdf->map.offset_x = e_lenght / 4;
 	fdf->map.offset_y = e_height / 2;
+	return (1);
 }
 
 /**
@@ -30,14 +31,8 @@ void	calculate(t_fdf *fdf)
 int	parse_map_int(t_fdf *fdf)
 {
 	if (turn_map_int(fdf))
-	{
 		if (get_color(fdf))
 			return (1);
-		else
-			quit(fdf, 8); // Erro malloc color
-	}
-	else
-		quit(fdf, 7); //Erro malloc int_map
 	return (0);
 }
 
@@ -63,13 +58,9 @@ int	parse(t_fdf *fdf, char *file_name)
 	if (fdf->fd != -1)
 	{
 		if (parse_map_char(fdf, file_name))
-		{
 			if (parse_map_int(fdf))
-			{
-				calculate(fdf);
-				return (1);
-			}
-		}
+				if (calculate(fdf))
+					return (1);
 	}
 	else
 		error(fdf, no_file);

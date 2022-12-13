@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 15:01:17 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:19:17 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,5 @@ void	error(t_fdf *fdf, enum e_error_msg msg)
 		ft_printf("./fdf <map name> [scale zscale]\n");
 	else if (msg == no_data_found)//quit_3
 		ft_printf("No data found.\n");
-
+	quit(fdf, 1);
 }
