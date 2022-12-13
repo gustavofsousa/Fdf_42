@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:42:38 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:56:17 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	extinguish_maps(t_fdf *fdf)
 			free(fdf->map.map[i]);
 		free(fdf->map.map);
 	}
-	/*
 	i = -1;
 	if (fdf->map.map_char)
 	{
@@ -31,7 +30,6 @@ void	extinguish_maps(t_fdf *fdf)
 			free(fdf->map.map_char[i]);
 		free(fdf->map.map_char);
 	}
-	*/
 	i = -1;
 	if (fdf->map.color)
 	{

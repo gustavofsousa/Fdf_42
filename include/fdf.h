@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 15:59:41 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:42:58 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 
-void	quit(t_fdf *fdf, int error);
+void	quit(t_fdf *fdf);
 void	error(t_fdf *fdf, enum e_error_msg msg);
 #endif
