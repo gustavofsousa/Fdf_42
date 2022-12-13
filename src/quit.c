@@ -6,11 +6,19 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:56:17 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 19:53:12 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+void	extinguish_mlx(t_fdf *fdf)
+{
+	if (fdf->mlx.win)
+		mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
+	if (fdf->mlx.img)
+		mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
+}
 
 void	extinguish_maps(t_fdf *fdf)
 {
@@ -42,6 +50,7 @@ void	extinguish_maps(t_fdf *fdf)
 void	quit(t_fdf *fdf)
 {
 	extinguish_maps(fdf);
+	extinguish_mlx(fdf);
 	free(fdf->file_name);
 	if (fdf->fd > 2)
 		close(fdf->fd);
