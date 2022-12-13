@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:39:55 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/08 15:58:02 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:42:41 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	key_press(int keycode, t_fdf *fdf)
 	{
 		mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
 		mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
-		exit (0);
+		quit(fdf);
 	}
 	return (0);
 }
@@ -27,7 +27,7 @@ static int	close_event(t_fdf *fdf)
 {
 	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
 	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
-	exit(0);
+	quit(fdf);
 	return (0);
 }
 

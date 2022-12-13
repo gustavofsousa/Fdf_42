@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:45:44 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:12:39 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:52:46 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,6 @@ int	ft_atohex(char *str)
 	}
 	return (nbr);
 }
-
-/*
-int	ft_atohex(char *str, int len)
-{
-	int	nbr;
-	int	i;
-	char	*base;
-	int		pre;
-	i = 0;
-	if (str[i + 1] == 'X')
-		i += 2;
-	base = "0123456789ABCDEF";
-	while (len--)
-	{
-		pre = str[i++] - '0';
-		nbr = nbr * 10 + base[pre % 16];
-	}
-	return (nbr);
-}
-*/
 
 /**
  *	ir até o fim da virgula
