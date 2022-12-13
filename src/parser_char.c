@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_char.c                                       :+:      :+:    :+:   */
+/*   parser_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/07 17:48:07 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:07:54 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int	count_columns(t_fdf *fdf)
 	while (++a_row < fdf->map.rows)
 	{
 		if (count_words(fdf->map.map_char[a_row]) < n_col)
+		{
+			error(fdf, line_lenght_error);
 			return (0);
+		}
 	}
 	fdf->map.columns = n_col;
 	return (1);
@@ -83,22 +86,22 @@ int	is_valid_row(t_fdf *fdf, int a_row)
  * Usar gnl para pegar o mapa
  * Conferir se não achou dado
  */
-int	get_char_map(t_fdf *fdf, int fd)
+int	get_map_char(t_fdf *fdf)
 {
 	int	a_row;
 
 	a_row = -1;
 	while (++a_row < fdf->map.rows)
 	{
-		fdf->map.map_char[a_row] = get_next_line(fd);
+		fdf->map.map_char[a_row] = get_next_line(fdf->fd);
 		if (fdf->map.map_char[a_row] == NULL || !is_valid_row(fdf, 0))
 		{
-			ft_printf("No data found.\n");
+			error(fdf, no_data_found);
 			return (0);
 		}
 		else if (!is_valid_row(fdf, a_row))
 		{
-			ft_printf("Found wrong line lenght. Exiting.\n");
+			error(fdf, wrong_line_lenght);
 			return (0);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 11:13:34 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:01:17 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void	quit_1(t_fdf *fdf)
 			free(fdf->map.color[i]);
 		free(fdf->map.color);
 	}
+	free(fdf->file_name);
+	if (fdf->fd > 2)
+		close(fdf->fd);
 }
 
 void	quit_6(t_fdf *fdf)
 {
-	ft_printf("./fdf <map name> [scale zscale]\n");
 	(void)fdf;
 }
 
@@ -99,4 +101,21 @@ void	quit(t_fdf *fdf, int error)
 		quit_6(fdf);
 
 	exit (0);
+}
+
+void	error(t_fdf *fdf, enum e_error_msg msg)
+{
+	if (msg == no_file) //quit_2
+		ft_printf("No file %s\n", fdf->file_name);
+	else if (msg == file_not_find) //
+		ft_printf("Couldn't find file");
+	else if (msg == wrong_line_lenght)
+		ft_printf("found wrong line lenght. Exiting.\n");
+	else if (msg == line_lenght_error) //quit_1
+		ft_printf("Found wrong line lenght error.\n");
+	else if (msg == wrong_input)
+		ft_printf("./fdf <map name> [scale zscale]\n");
+	else if (msg == no_data_found)//quit_3
+		ft_printf("No data found.\n");
+
 }

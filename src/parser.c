@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 11:10:40 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 16:08:20 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,14 @@ int	parse_map_int(t_fdf *fdf)
 	return (0);
 }
 
-int	parse_map_char(t_fdf *fdf, int fd, char *file_name)
+int	parse_map_char(t_fdf *fdf, char *file_name)
 {
 	count_rows(fdf, file_name);
 	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
 	if (fdf->map.map_char)
-	{
-		if (get_char_map(fdf, fd))
-		{
-			close(fd);
+		if (get_map_char(fdf))
 			if (count_columns(fdf))
 				return (1);
-			else
-				quit(fdf, 4); //Wrong line lenght error
-		}
-		else
-		{
-			close (fd);
-			quit(fdf, 3); // No data found. Wrong line lenght. Erro malloc char_map.
-		}
-	}
-	else
-	{
-		close (fd);
-		quit(fdf, 1); // Error malloc map_char incompleto
-	}
 	return (0);
 }
 
@@ -73,17 +56,13 @@ int	parse_map_char(t_fdf *fdf, int fd, char *file_name)
  * Receber o mapa com gnl
  * Colocar em char **
  * Converter para int **
- * Verificar se é um mapa válido
- * Guardar as cores
  */
 int	parse(t_fdf *fdf, char *file_name)
 {
-	int	fd;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd != -1)
+	fdf->fd = open(file_name, O_RDONLY);
+	if (fdf->fd != -1)
 	{
-		if (parse_map_char(fdf, fd, file_name))
+		if (parse_map_char(fdf, file_name))
 		{
 			if (parse_map_int(fdf))
 			{
@@ -93,9 +72,6 @@ int	parse(t_fdf *fdf, char *file_name)
 		}
 	}
 	else
-	{
-		ft_printf("No file %s\n", file_name);
-		quit(fdf, 2); // Couldn't find file. // Nada de malloc
-	}
+		error(fdf, no_file);
 	return (0);
 }

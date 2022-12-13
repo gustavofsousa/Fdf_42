@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 11:04:06 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/13 15:59:41 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ enum e_size_img
 	e_height = 800,
 	e_tiny_lenght = 500,
 	e_tiny_height = 370
+};
+
+enum	e_error_msg
+{
+	none,
+	no_file,
+	file_not_find,
+	wrong_line_lenght,
+	line_lenght_error,
+	wrong_input,
+	no_data_found,
 };
 
 typedef struct s_mlx
@@ -93,6 +104,8 @@ typedef struct s_fdf
 	t_map	map;
 	t_mlx	mlx;
 	t_pixel	p;
+	char	*file_name;
+	int		fd;
 }	t_fdf;
 
 //Analise
@@ -100,7 +113,7 @@ int		parse(t_fdf *fdf, char *file_name);
 
 // Analise char
 void	count_rows(t_fdf *fdf, char *file_name);
-int		get_char_map(t_fdf *fdf, int fd);
+int		get_map_char(t_fdf *fdf);
 int		count_columns(t_fdf *fdf);
 //Analise int
 int		turn_map_int(t_fdf *fdf);
@@ -114,4 +127,5 @@ t_point	do_isometric(t_point p);
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 
 void	quit(t_fdf *fdf, int error);
+void	error(t_fdf *fdf, enum e_error_msg msg);
 #endif
