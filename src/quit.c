@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 19:53:12 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:25:10 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	quit(t_fdf *fdf)
 {
 	extinguish_maps(fdf);
 	extinguish_mlx(fdf);
-	free(fdf->file_name);
+	if (fdf->file_name)
+		free(fdf->file_name);
 	if (fdf->fd > 2)
 		close(fdf->fd);
 	exit (0);

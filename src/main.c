@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/14 14:32:33 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:25:44 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	setup(t_fdf *fdf, int argc, char **argv)
 	fdf->map.color_flag = 0;
 	fdf->mlx.win = NULL;
 	fdf->mlx.img = NULL;
+	fdf->file_name = NULL;
+	fdf->fd = 0;
 }
 
 int	main(int argc, char **argv)
