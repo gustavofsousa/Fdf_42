@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:42:58 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:45:43 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct	s_pixel
 {
 	int			x;
 	int			y;
-	int			color;
 }	t_pixel;
 
 typedef	struct	s_map
@@ -106,10 +105,13 @@ typedef struct s_fdf
 	t_pixel	p;
 	char	*file_name;
 	int		fd;
+	int		case_size;
+	int		z_size;
+	int		case_size_flag;
 }	t_fdf;
 
 //Analise
-int		parse(t_fdf *fdf, char *file_name);
+int		parse(t_fdf *fdf);
 
 // Analise char
 void	count_rows(t_fdf *fdf, char *file_name);

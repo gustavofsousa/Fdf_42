@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/09 11:16:47 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:26:50 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 	t_point	p;
 	int		pos;
 
-	p = do_isometric(p_in);
-	pos = (p.y * fdf->mlx.line_bytes) + p.x;
-	// Somando um offset
-	pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
-	// Cortando as laterais
-	//if (pos < ((fdf->mlx.line_bytes * fdf->map.a_row + 1) - 1))
-	//{
+	if (p_in.x >= 0 && p_in.x < e_lenght
+			&& p_in.y >= 0 && p_in.y < e_height)
+	{
+		if (fdf->case_size_flag == 1)
+			p_in.z *= fdf->z_size;
+		p = do_isometric(p_in);
+		pos = (p.y * fdf->mlx.line_bytes) + p.x;
+		pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
 		if (fdf->map.color_flag == 1)
 			fdf->mlx.buffer[pos] = fdf->map.color[fdf->map.a_row][fdf->map.a_col];
 		else
@@ -50,5 +51,5 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 			else
 				fdf->mlx.buffer[pos] = GREEN_3;
 		}
-	//}
+	}
 }
