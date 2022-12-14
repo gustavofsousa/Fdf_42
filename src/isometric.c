@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/14 16:26:50 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 18:18:53 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,23 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 {
 	t_point	p;
 	int		pos;
+	int		color;
 
-	if (p_in.x >= 0 && p_in.x < e_lenght
-			&& p_in.y >= 0 && p_in.y < e_height)
+	if (fdf->case_size_flag == 1)
+		p_in.z *= fdf->z_size;
+
+	p = do_isometric(p_in);
+
+	pos = (p.y * fdf->mlx.line_bytes) + p.x;
+	pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
+
+	if (pos < (p_in.y + 2) * fdf->mlx.line_bytes)
 	{
-		if (fdf->case_size_flag == 1)
-			p_in.z *= fdf->z_size;
-		p = do_isometric(p_in);
-		pos = (p.y * fdf->mlx.line_bytes) + p.x;
-		pos += (fdf->map.offset_y * fdf->mlx.line_bytes) + fdf->map.offset_x;
 		if (fdf->map.color_flag == 1)
-			fdf->mlx.buffer[pos] = fdf->map.color[fdf->map.a_row][fdf->map.a_col];
+		{
+			color = fdf->map.color[fdf->map.a_row][fdf->map.a_col];
+			fdf->mlx.buffer[pos] = color;
+		}
 		else
 		{
 			if (p_in.z == 0)
