@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:19:22 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:25:54 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ int	parse_map_char(t_fdf *fdf, char *file_name)
  */
 int	parse(t_fdf *fdf, char *file_name)
 {
-	fdf->fd = open(file_name, O_RDONLY);
-	if (fdf->fd != -1)
+	if (file_name)
 	{
-		if (parse_map_char(fdf, file_name))
-			if (parse_map_int(fdf))
-				if (calculate(fdf))
-					return (1);
+		fdf->fd = open(file_name, O_RDONLY);
+		if (fdf->fd != -1)
+		{
+			ft_printf("Dwntro");
+			if (parse_map_char(fdf, file_name))
+				if (parse_map_int(fdf))
+					if (calculate(fdf))
+						return (1);
+		}
+		else
+			error(fdf, no_file);
 	}
 	else
 		error(fdf, no_file);
