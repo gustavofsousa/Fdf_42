@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:29 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 13:52:41 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:00:30 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,20 @@ static void	advance_axis_z(t_fdf *fdf, t_var_steep stp, t_point p1, t_point p2)
 	}
 }
 
-void	draw_steep(t_fdf *fdf, t_point p1, t_point p2)
+void	draw_line(t_fdf *fdf, t_point p1, t_point p2)
 {
 	t_var_steep	stp;
-//	t_point		pp1;
-//	t_point		pp2;
 
-//	pp1 = do_isometric(p1);
-//	pp2 = do_isometric(p2);
-
+	if (fdf->case_size_flag == 1)
+	{
+		p1.z *= fdf->z_size;
+		p2.z *= fdf->z_size;
+	}
+	p1 = do_isometric(p1);
+	p2 = do_isometric(p2);
 	stp.dx = ft_abs(p2.x - p1.x);
 	stp.dy = ft_abs(p2.y - p1.y);
 	stp.dz = ft_abs(p2.z - p1.z);
-	//stp.dz = ft_abs(pp2.z - pp1.z);
 	define_increase(p1, p2, &stp);
 	if (stp.dx >= stp.dy && stp.dx >= stp.dz)
 		advance_axis_x(fdf, stp, p1, p2);

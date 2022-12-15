@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 13:34:56 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:58:16 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@ t_point	do_isometric(t_point p)
 	rtn.y = p.x * sin(alpha)
 		+ p.y * sin(alpha + angle)
 		+ p.z * sin(alpha - angle);
-	rtn.z = rtn.x + rtn.y;
+	rtn.z = p.z;
 	return (rtn);
 }
 
-void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
+void	please_put_my_pixel(t_fdf *fdf, t_point p)
 {
-	t_point	p;
 	int		pos;
 
-	if (fdf->case_size_flag == 1)
-		p_in.z *= fdf->z_size;
-	p = do_isometric(p_in);
 	p.x += fdf->map.offset_x;
 	p.y += fdf->map.offset_y;
 	pos = (p.y * fdf->mlx.line_bytes) + p.x;
@@ -49,7 +45,7 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p_in)
 			[fdf->map.a_row][fdf->map.a_col];
 		else
 		{
-			if (p_in.z == 0)
+			if (p.z == 0)
 				fdf->mlx.buffer[pos] = WHITE;
 			else
 				fdf->mlx.buffer[pos] = GREEN_3;
