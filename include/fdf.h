@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/14 15:45:43 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 16:13:38 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		get_color(t_fdf *fdf);
 // MLX
 int		display_mlx_win(t_fdf *fdf);
 void	draw_win(t_fdf *fdf);
-void	draw_steep(t_fdf *fdf, t_point p1, t_point p2);
+void	draw_line(t_fdf *fdf, t_point p1, t_point p2);
 t_point	do_isometric(t_point p);
 void	please_put_my_pixel(t_fdf *fdf, t_point p_in);
 

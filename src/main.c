@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 15:46:33 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 16:18:55 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_case_size(t_fdf *fdf, char **argv)
 	if (fdf->case_size == 0 || fdf->z_size == 0)
 	{
 		fdf->case_size = 1;
-		fdf->z_size = 1;
+		fdf->z_size = 6;
 	}
 }
 
@@ -40,7 +40,7 @@ void	setup(t_fdf *fdf, int argc, char **argv)
 	fdf->mlx.img = NULL;
 	fdf->fd = 0;
 	fdf->case_size = 1;
-	fdf->z_size = 1;
+	fdf->z_size = 6;
 	if (argc == 4)
 		get_case_size(fdf, argv);
 }
