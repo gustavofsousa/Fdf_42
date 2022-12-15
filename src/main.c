@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:46:51 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 14:08:13 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:46:33 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	get_case_size(t_fdf *fdf, char **argv)
 {
-	fdf->case_size_flag = 1;
 	fdf->case_size = ft_atoi(argv[2]);
-	fdf->z_size = ft_atoi(argv[3]);
+	fdf->z_size *= ft_atoi(argv[3]);
 	if (fdf->case_size == 0 || fdf->z_size == 0)
 	{
 		fdf->case_size = 1;
@@ -40,8 +39,8 @@ void	setup(t_fdf *fdf, int argc, char **argv)
 	fdf->mlx.win = NULL;
 	fdf->mlx.img = NULL;
 	fdf->fd = 0;
-	fdf->case_size_flag = 0;
 	fdf->case_size = 1;
+	fdf->z_size = 1;
 	if (argc == 4)
 		get_case_size(fdf, argv);
 }

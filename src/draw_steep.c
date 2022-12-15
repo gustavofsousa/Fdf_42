@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:32:29 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 15:00:30 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 15:08:37 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,8 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2)
 {
 	t_var_steep	stp;
 
-	if (fdf->case_size_flag == 1)
-	{
-		p1.z *= fdf->z_size;
-		p2.z *= fdf->z_size;
-	}
+	p1.z *= fdf->z_size;
+	p2.z *= fdf->z_size;
 	p1 = do_isometric(p1);
 	p2 = do_isometric(p2);
 	stp.dx = ft_abs(p2.x - p1.x);
