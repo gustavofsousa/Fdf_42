@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 13:05:08 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 13:34:56 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_point	do_isometric(t_point p)
 	rtn.y = p.x * sin(alpha)
 		+ p.y * sin(alpha + angle)
 		+ p.z * sin(alpha - angle);
+	rtn.z = rtn.x + rtn.y;
 	return (rtn);
 }
 

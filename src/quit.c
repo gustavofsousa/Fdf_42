@@ -6,19 +6,11 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:29:32 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/14 15:25:10 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:03:34 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void	extinguish_mlx(t_fdf *fdf)
-{
-	if (fdf->mlx.win)
-		mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
-	if (fdf->mlx.img)
-		mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img);
-}
 
 void	extinguish_maps(t_fdf *fdf)
 {
@@ -50,7 +42,6 @@ void	extinguish_maps(t_fdf *fdf)
 void	quit(t_fdf *fdf)
 {
 	extinguish_maps(fdf);
-	extinguish_mlx(fdf);
 	if (fdf->file_name)
 		free(fdf->file_name);
 	if (fdf->fd > 2)
@@ -60,17 +51,17 @@ void	quit(t_fdf *fdf)
 
 void	error(t_fdf *fdf, enum e_error_msg msg)
 {
-	if (msg == no_file) //quit_2
+	if (msg == no_file)
 		ft_printf("No file %s\n", fdf->file_name);
-	else if (msg == file_not_find) //
+	else if (msg == file_not_find)
 		ft_printf("Couldn't find file");
 	else if (msg == wrong_line_lenght)
 		ft_printf("found wrong line lenght. Exiting.\n");
-	else if (msg == line_lenght_error) //quit_1
+	else if (msg == line_lenght_error)
 		ft_printf("Found wrong line lenght error.\n");
 	else if (msg == wrong_input)
 		ft_printf("./fdf <map name> [scale zscale]\n");
-	else if (msg == no_data_found)//quit_3
+	else if (msg == no_data_found)
 		ft_printf("No data found.\n");
 	quit(fdf);
 }
