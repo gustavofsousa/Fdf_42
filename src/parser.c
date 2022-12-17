@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/14 16:22:21 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 13:05:52 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	calculate(t_fdf *fdf)
 	fdf->map.interval_row = (e_tiny_height * fdf->case_size) / fdf->map.rows;
 	fdf->map.interval_col = (e_tiny_lenght * fdf->case_size) / fdf->map.columns;
 	fdf->map.offset_x = e_lenght / 4;
-	fdf->map.offset_y = e_height / 2;
+	fdf->map.offset_y = e_height / 2 + e_height / 4;
 	return (1);
 }
 
