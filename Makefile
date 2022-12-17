@@ -15,8 +15,8 @@ OBJDIR	:=	 ./obj/
 SRC :=		main.c \
 	  		parser.c parser_char.c parser_int.c \
 			mlx.c\
-	 	 	draw.c draw_steep.c \
-	 	 	isometric.c \
+	 	 	draw.c draw_line.c \
+	 	 	please_put_pixel.c \
 			get_next_line.c get_next_line_utils.c \
 			quit.c
 
