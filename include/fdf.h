@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/17 13:41:47 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 18:24:53 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,10 @@
 # include "./get_next_line.h"
 # include "../miniLibX/mlx.h"
 # include "../ft_printf/ft_printf.h"
-#include <fcntl.h>
-#include <math.h>
+# include <fcntl.h>
+# include <math.h>
 
-#define LIGHT_BLUE	0XABCDEF
-#define GREEN_3		0X9FE2BF
-#define BLUE		0x6464FF
-#define WHITE		0xFFFFFF
-#define RED			0xF03A15
-#define REDER		0xAC270B
-#define ORANGE		0xFF8000
+# define WHITE		0xFFFFFF
 
 enum e_size_img
 {
@@ -57,16 +51,16 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
-typedef struct	s_point
+typedef struct s_point
 {
 	int	x;
 	int	y;
 	int	z;
 }	t_point;
 
-typedef struct	s_var_steep
+typedef struct s_var_steep
 {
-	int dx;
+	int	dx;
 	int	dy;
 	int	dz;
 	int	xs;
@@ -76,13 +70,13 @@ typedef struct	s_var_steep
 	int	pk2;
 }	t_var_steep;
 
-typedef struct	s_pixel
+typedef struct s_pixel
 {
 	int			x;
 	int			y;
 }	t_pixel;
 
-typedef	struct	s_map
+typedef struct s_map
 {
 	char		**map_char;
 	int			**map;
