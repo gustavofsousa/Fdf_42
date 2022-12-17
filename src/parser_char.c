@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 14:01:11 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 16:14:32 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	count_words(char *str)
 
 	i = 0;
 	qtd_word = 1;
+	if (str == NULL)
+		return (-1);
 	while (str[i + 1])
 	{
 		if (str[i] != ' ' && str[i + 1] == ' ')
@@ -56,7 +58,7 @@ int	count_columns(t_fdf *fdf)
 
 	n_col = count_words(fdf->map.map_char[0]);
 	a_row = -1;
-	while (++a_row < fdf->map.rows)
+	while (++a_row < fdf->map.rows && n_col > 0)
 	{
 		if (count_words(fdf->map.map_char[a_row]) < n_col)
 		{
