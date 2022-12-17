@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:15:06 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 16:13:38 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 13:41:47 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum e_size_img
 {
 	e_lenght = 1200,
 	e_height = 800,
-	e_tiny_lenght = 500,
+	e_tiny_lenght = 600,
 	e_tiny_height = 370
 };
 

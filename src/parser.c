@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/17 13:05:52 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 17:09:46 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse_map_int(t_fdf *fdf)
 int	parse_map_char(t_fdf *fdf)
 {
 	count_rows(fdf, fdf->file_name);
-	fdf->map.map_char = malloc(fdf->map.rows * sizeof(char *));
+	fdf->map.map_char = malloc((fdf->map.rows + 1) * sizeof(char *));
 	if (fdf->map.map_char)
 		if (get_map_char(fdf))
 			if (count_columns(fdf))

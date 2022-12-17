@@ -6,23 +6,22 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:45:44 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/13 16:52:46 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 17:27:30 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	ft_atohex(char *str)
+int	ft_atohex(char *str, int i)
 {
 	static int	hex_values[6] = {10, 11, 12, 13, 14, 15};
 	int			nbr;
-	int			i;
 
 	if (!str)
 		return (0);
 	nbr = 0;
-	i = 0;
-	if (ft_strncmp(str, ",0x", 3) == 0 || ft_strncmp(str, ",0X", 3) == 0)
+	if (ft_strncmp(&str[i], ",0x", 3) == 0
+		|| ft_strncmp(&str[i], ",0X", 3) == 0)
 		i += 3;
 	while (str[i] != '\0' && str[i] != ' ')
 	{
@@ -32,7 +31,7 @@ int	ft_atohex(char *str)
 			nbr = nbr * 16 + hex_values[(str[i] - 97)];
 		else if (str[i] >= 'A' && str[i] <= 'F')
 			nbr = nbr * 16 + hex_values[(str[i] - 65)];
-		i++;
+		(i)++;
 	}
 	return (nbr);
 }
@@ -43,20 +42,30 @@ int	ft_atohex(char *str)
  */
 void	extract(t_fdf *fdf, int a_row)
 {
-	int	i;
-	int	c;
+	int	lett;
+	int	col_actual;
 
-	i = 0;
-	c = 0;
-	while (fdf->map.map_char[a_row][i])
+	col_actual = -1;
+	if (ft_strchr(fdf->map.map_char[a_row], ','))
 	{
-		if (fdf->map.map_char[a_row][i] == ',')
+		lett = -1;
+		while (fdf->map.map_char[a_row][++lett])
 		{
-			fdf->map.color[a_row][c] = ft_atohex((fdf->map).map_char[a_row]
-					+ i);
-			c++;
+			if (ft_isalnum(fdf->map.map_char[a_row][lett]))
+			{
+				col_actual++;
+				while (ft_isalnum(fdf->map.map_char[a_row][lett]))
+					lett++;
+			}
+			if (fdf->map.map_char[a_row][lett] == ',')
+			{
+				fdf->map.color[a_row][col_actual] = ft_atohex
+					(fdf->map.map_char[a_row], lett);
+				lett++;
+				while (ft_isalnum(fdf->map.map_char[a_row][lett]))
+					lett++;
+			}
 		}
-		i++;
 	}
 }
 
@@ -65,25 +74,28 @@ void	extract(t_fdf *fdf, int a_row)
 int	get_color(t_fdf *fdf)
 {
 	int	a_row;
+	int	a_col;
 
-	if (ft_strchr(fdf->map.map_char[0], ','))
+	fdf->map.color = malloc((fdf->map.rows + 1) * sizeof(int *));
+	if (fdf->map.color)
 	{
-		fdf->map.color_flag = 1;
-		fdf->map.color = malloc(fdf->map.rows * sizeof(int *));
-		if (fdf->map.color)
+		a_row = -1;
+		while (++a_row < fdf->map.rows)
 		{
-			a_row = -1;
-			while (++a_row < fdf->map.rows)
+			fdf->map.color[a_row] = malloc(fdf->map.columns * sizeof(int));
+			if (fdf->map.color[a_row])
 			{
-				fdf->map.color[a_row] = malloc(fdf->map.rows * sizeof(int));
-				if (fdf->map.color[a_row])
-					extract(fdf, a_row);
-				else
-					return (0);
+				a_col = -1;
+				while (++a_col < fdf->map.columns)
+				{
+					fdf->map.color[a_row][a_col] = WHITE;
+				}
 			}
+			else
+				return (0);
+			extract(fdf, a_row);
 		}
-		else
-			return (0);
+		fdf->map.color[a_row] = NULL;
 	}
 	return (1);
 }
@@ -122,7 +134,7 @@ int	turn_map_int(t_fdf *fdf)
 {
 	int	a_row;
 
-	fdf->map.map = malloc(fdf->map.rows * sizeof(int *));
+	fdf->map.map = malloc((fdf->map.rows + 1) * sizeof(int *));
 	if (fdf->map.map)
 	{
 		a_row = -1;
@@ -134,6 +146,7 @@ int	turn_map_int(t_fdf *fdf)
 			else
 				return (0);
 		}
+		fdf->map.map[a_row] = NULL;
 	}
 	else
 		return (0);

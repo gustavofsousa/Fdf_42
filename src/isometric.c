@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 11:54:53 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/15 14:58:16 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 17:14:34 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,7 @@ void	please_put_my_pixel(t_fdf *fdf, t_point p)
 	if ((p.x >= 0 && p.y < e_lenght && p.y >= 0 && p.y <= e_height)
 		& (pos < ((p.y + 1) * fdf->mlx.line_bytes)))
 	{
-		if (fdf->map.color_flag == 1)
-			fdf->mlx.buffer[pos] = fdf->map.color
-			[fdf->map.a_row][fdf->map.a_col];
-		else
-		{
-			if (p.z == 0)
-				fdf->mlx.buffer[pos] = WHITE;
-			else
-				fdf->mlx.buffer[pos] = GREEN_3;
-		}
+		//fdf->mlx.buffer[pos] = WHITE;
+		fdf->mlx.buffer[pos] = fdf->map.color[fdf->map.a_row][fdf->map.a_col];
 	}
 }

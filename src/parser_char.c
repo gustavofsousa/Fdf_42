@@ -6,7 +6,7 @@
 /*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:14:52 by gusousa           #+#    #+#             */
-/*   Updated: 2022/12/17 16:14:32 by gusousa          ###   ########.fr       */
+/*   Updated: 2022/12/17 16:44:47 by gusousa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ int	get_map_char(t_fdf *fdf)
 			return (0);
 		}
 	}
+	fdf->map.map_char[a_row] = NULL;
 	return (1);
 }
